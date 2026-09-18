@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #10151f;
-  --color-ink-soft: #303c56;
+  /* Ink: dark charcoal-navy, sampled from reference hero background. Accent gold sampled from the ASLPC logo. */
+  --color-ink: #172532;
+  --color-ink-soft: #404c56;
   --color-paper: #faf7f0;
   --color-surface: #ffffff;
-  --color-accent: #a97a2f;
-  --color-accent-dark: #86611f;
-  --color-terracotta: #9c4128;
-  --color-line: #e4ded0;
-  --color-line-on-ink: #2a3350;
-  --color-muted: #5c6270;
+  --color-accent: #b8903c;
+  --color-accent-dark: #8f6d2a;
+  --color-line: #e1e4ea;
+  --color-line-on-ink: #4a545f;
+  --color-muted: #57606f;
 }
 
 @theme inline {
@@ -20,13 +20,12 @@
   --color-surface: var(--color-surface);
   --color-accent: var(--color-accent);
   --color-accent-dark: var(--color-accent-dark);
-  --color-terracotta: var(--color-terracotta);
   --color-line: var(--color-line);
   --color-line-on-ink: var(--color-line-on-ink);
   --color-muted: var(--color-muted);
 
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-newsreader);
+  --font-serif: var(--font-playfair);
 
   --container-page: 88rem;
 }
@@ -40,4 +39,60 @@ body {
 ::selection {
   background: var(--color-accent);
   color: var(--color-surface);
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes badge-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dot-fill {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Layered (not left unlayered) so Tailwind utilities like group-hover:[...]
+   — which are emitted inside @layer utilities — can still override these
+   per normal specificity rules. Unlayered styles always beat layered ones
+   regardless of specificity, which silently defeated group-hover overrides. */
+@layer utilities {
+  .animate-hero-fade-up {
+    animation: hero-fade-up 0.7s ease-out both;
+  }
+
+  .badge-rotate {
+    animation: badge-spin 22s linear infinite;
+  }
+
+  .dot-progress {
+    animation: dot-fill linear forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-fade-up {
+      animation: none;
+    }
+    .badge-rotate {
+      animation: none;
+    }
+    .dot-progress {
+      animation: none;
+    }
+  }
 }

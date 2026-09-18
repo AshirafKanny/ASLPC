@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { LogoMark } from "@/components/ui/logo";
 import { FOOTER_NAV, SITE } from "@/lib/constants";
 
 export function SiteFooter() {
@@ -8,9 +9,7 @@ export function SiteFooter() {
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
-            <span className="flex h-10 w-10 items-center justify-center border border-paper/40 font-serif text-sm text-paper">
-              AS
-            </span>
+            <LogoMark size={56} />
             <p className="mt-5 max-w-sm font-serif text-xl leading-snug text-paper">
               {SITE.name}
             </p>

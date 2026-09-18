@@ -9,13 +9,13 @@ const STATS = [
 
 export function StatsBand() {
   return (
-    <section className="border-b border-line bg-ink text-paper">
+    <section className="border-b border-line bg-surface">
       <Container>
-        <div className="grid grid-cols-2 divide-x divide-line-on-ink lg:grid-cols-4">
+        <div className="grid grid-cols-2 divide-x divide-line lg:grid-cols-4">
           {STATS.map((stat) => (
-            <div key={stat.label} className="border-b border-line-on-ink px-6 py-8 last:border-b-0 lg:border-b-0">
-              <p className="font-serif text-3xl text-paper">{stat.value}</p>
-              <p className="mt-2 text-xs tracking-wide text-paper/60 uppercase">{stat.label}</p>
+            <div key={stat.label} className="border-b border-line px-6 py-8 last:border-b-0 lg:border-b-0">
+              <p className="font-serif text-3xl text-accent-dark">{stat.value}</p>
+              <p className="mt-2 text-xs tracking-wide text-muted uppercase">{stat.label}</p>
             </div>
           ))}
         </div>
