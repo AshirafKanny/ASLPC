@@ -1,0 +1,62 @@
+import type { Metadata } from "next";
+import { Inter, Newsreader } from "next/font/google";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SITE } from "@/lib/constants";
+import "./globals.css";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} (${SITE.shortName})`,
+    template: `%s — ${SITE.shortName}`,
+  },
+  description: SITE.description,
+  keywords: [
+    "sports law Africa",
+    "sports governance Africa",
+    "sports policy Africa",
+    "sport for development Africa",
+    "African Sports Law and Policy Centre",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: SITE.shortName,
+    title: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.name,
+    description: SITE.description,
+  },
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${inter.variable} ${newsreader.variable} h-full antialiased`}
+    >
+      <body className="flex min-h-full flex-col bg-paper text-ink">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+      </body>
+    </html>
+  );
+}
