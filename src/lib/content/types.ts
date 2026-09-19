@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export type PillarSlug =
   | "research"
   | "policy"
@@ -48,10 +50,14 @@ export interface Event {
 export interface InsightArticle {
   slug: string;
   title: string;
+  /** A verbatim substring of `title` to render as the italic accent phrase. */
+  accentPhrase?: string;
   author: string;
   publishedAt: string;
   pillar: PillarSlug;
   summary: string;
+  body: string[];
+  image: StaticImageData;
   readingTimeMinutes: number;
   tags: string[];
 }

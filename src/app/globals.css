@@ -26,6 +26,7 @@
 
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+  --font-cormorant: var(--font-cormorant);
 
   --container-page: 88rem;
 }
@@ -52,6 +53,71 @@ body {
   }
 }
 
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes tile-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.75) rotate(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes clip-reveal {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0%);
+  }
+}
+
+@keyframes badge-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
 @keyframes badge-spin {
   to {
     transform: rotate(360deg);
@@ -68,7 +134,7 @@ body {
 }
 
 /* Layered (not left unlayered) so Tailwind utilities like group-hover:[...]
-   — which are emitted inside @layer utilities — can still override these
+     which are emitted inside @layer utilities   can still override these
    per normal specificity rules. Unlayered styles always beat layered ones
    regardless of specificity, which silently defeated group-hover overrides. */
 @layer utilities {
@@ -76,8 +142,32 @@ body {
     animation: hero-fade-up 0.7s ease-out both;
   }
 
+  .animate-hero-reveal {
+    animation: hero-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-tile-reveal {
+    animation: tile-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-float-y {
+    animation: float-y 4.5s ease-in-out infinite;
+  }
+
+  .animate-clip-reveal {
+    animation: clip-reveal 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  .animate-badge-in {
+    animation: badge-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-ping-soft {
+    animation: ping-soft 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
   .badge-rotate {
-    animation: badge-spin 22s linear infinite;
+    animation: badge-spin 6s linear infinite;
   }
 
   .dot-progress {
@@ -85,7 +175,13 @@ body {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-hero-fade-up {
+    .animate-hero-fade-up,
+    .animate-hero-reveal,
+    .animate-tile-reveal,
+    .animate-float-y,
+    .animate-clip-reveal,
+    .animate-badge-in,
+    .animate-ping-soft {
       animation: none;
     }
     .badge-rotate {

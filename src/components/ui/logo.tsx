@@ -1,5 +1,5 @@
 import Image from "next/image";
-import mark from "../../../public/aslpc-mark.png";
+import mark from "../../../public/aslpc-mark.svg";
 import { cn } from "@/lib/utils";
 
 export function LogoMark({

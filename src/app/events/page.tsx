@@ -19,11 +19,20 @@ export default function EventsPage() {
       />
       <section className="py-16 lg:py-20">
         <Container>
-          <div className="grid gap-6 md:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.slug} event={event} />
-            ))}
-          </div>
+          {events.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-3">
+              {events.map((event) => (
+                <EventCard key={event.slug} event={event} />
+              ))}
+            </div>
+          ) : (
+            <p className="max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
+              ASLPC is in its institutional establishment phase and has not yet confirmed dated events. Once
+              launched, this calendar will carry the Centre&apos;s indicative annual programme   the African Sports
+              Law and Policy Conference, the Sports Governance Forum, the African Sports Law Lecture Series, Athlete
+              Rights Week, policy roundtables, and the ASLPC Academy&apos;s training courses.
+            </p>
+          )}
         </Container>
       </section>
     </>

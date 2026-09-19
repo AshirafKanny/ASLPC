@@ -2,42 +2,33 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { EventCard } from "@/components/content/event-card";
-import { InsightCard } from "@/components/content/insight-card";
 import { getUpcomingEvents } from "@/lib/content/events";
-import { getRecentInsights } from "@/lib/content/insights";
 
 export function EventsAndInsights() {
-  const events = getUpcomingEvents(2);
-  const insights = getRecentInsights(3);
+  const events = getUpcomingEvents(3);
 
   return (
     <section className="py-20 lg:py-28">
       <Container>
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-12">
-          <div>
-            <SectionHeading eyebrow="Engagement" title="Upcoming Events" />
-            <div className="mt-8 grid gap-6 sm:grid-cols-2">
-              {events.map((event) => (
-                <EventCard key={event.slug} event={event} />
-              ))}
-            </div>
-            <Button href="/events" variant="ghost" className="mt-6 justify-start px-0">
-              View Full Calendar →
-            </Button>
-          </div>
-
-          <div>
-            <SectionHeading eyebrow="Insights" title="From the Centre" />
-            <div className="mt-8">
-              {insights.map((insight) => (
-                <InsightCard key={insight.slug} insight={insight} />
-              ))}
-            </div>
-            <Button href="/insights" variant="ghost" className="mt-6 justify-start px-0">
-              Read More Insights →
-            </Button>
-          </div>
+        <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <SectionHeading eyebrow="Engagement" title="Upcoming Events" />
+          <Button href="/events" variant="secondary" className="shrink-0">
+            View Full Calendar
+          </Button>
         </div>
+
+        {events.length > 0 ? (
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {events.map((event) => (
+              <EventCard key={event.slug} event={event} />
+            ))}
+          </div>
+        ) : (
+          <p className="mt-10 max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
+            ASLPC&apos;s public programme — including its founding conference, policy dialogues and Academy training
+            courses — will be announced here following the Centre&apos;s institutional launch.
+          </p>
+        )}
       </Container>
     </section>
   );

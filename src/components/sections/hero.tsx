@@ -16,6 +16,7 @@ type Slide = {
   imageAlt: string;
   imageKind: "photo" | "cutout";
   imagePosition?: string;
+  headlineImageRight?: string;
 };
 
 const SLIDES: Slide[] = [
@@ -29,6 +30,7 @@ const SLIDES: Slide[] = [
     image: "/hero/research-justice-cutout.webp",
     imageAlt: "A statuette of Lady Justice with scales, a gavel and an open law book",
     imageKind: "cutout",
+    headlineImageRight: "6rem",
   },
   {
     eyebrow: "Governance & Reform",
@@ -52,6 +54,7 @@ const SLIDES: Slide[] = [
     imageAlt: "A goalkeeper holding a football, gloved hand resting on the ball",
     imageKind: "photo",
     imagePosition: "50% 75%",
+    headlineImageRight: "10rem",
   },
 ];
 
@@ -85,6 +88,37 @@ export function Hero() {
     getReducedMotionServerSnapshot,
   );
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgLayerRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    function onMouseMove(e: MouseEvent) {
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      if (bgLayerRef.current) {
+        bgLayerRef.current.style.transform = `translate3d(${x * -14}px, ${y * -10}px, 0)`;
+      }
+      if (badgeRef.current) {
+        badgeRef.current.style.transform = `translate3d(${x * 18}px, ${y * 14}px, 0)`;
+      }
+    }
+    function onMouseLeave() {
+      if (bgLayerRef.current) bgLayerRef.current.style.transform = "translate3d(0, 0, 0)";
+      if (badgeRef.current) badgeRef.current.style.transform = "translate3d(0, 0, 0)";
+    }
+    section.addEventListener("mousemove", onMouseMove);
+    section.addEventListener("mouseleave", onMouseLeave);
+    return () => {
+      section.removeEventListener("mousemove", onMouseMove);
+      section.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (!videoOpen) return;
@@ -129,49 +163,29 @@ export function Hero() {
   const slide = SLIDES[index];
 
   return (
-    <section className="relative isolate min-h-[640px] overflow-hidden bg-ink text-paper lg:min-h-[86vh]">
+    <section
+      ref={sectionRef}
+      className="relative isolate min-h-[640px] overflow-hidden bg-ink text-paper lg:min-h-[86vh]"
+    >
       {/* Background layers: full-bleed photo slides crossfade with a slow Ken Burns zoom; cutout slides sit as a right-aligned object on the solid ink background */}
-      <div className="absolute inset-0">
+      <div ref={bgLayerRef} className="absolute -inset-4 transition-transform duration-300 ease-out will-change-transform">
         {SLIDES.map((s, i) => (
           <div
             key={s.eyebrow}
             aria-hidden={i !== index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+            className={`absolute inset-4 transition-opacity duration-1000 ease-out ${
               i === index ? "opacity-100" : "opacity-0"
             }`}
           >
-            {s.imageKind === "photo" ? (
-              <>
-                <div
-                  className={`absolute inset-0 transition-transform ease-linear ${
-                    i === index ? "scale-110" : "scale-100"
-                  }`}
-                  style={{ transitionDuration: `${AUTOPLAY_MS + 800}ms` }}
-                >
-                  <Image
-                    src={s.image}
-                    alt={s.imageAlt}
-                    fill
-                    priority={i === 0}
-                    sizes="100vw"
-                    className="object-cover"
-                    style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
-                  />
-                </div>
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to right, var(--color-ink) 0%, var(--color-ink) 46%, color-mix(in srgb, var(--color-ink) 55%, transparent) 62%, color-mix(in srgb, var(--color-ink) 18%, transparent) 100%)",
-                  }}
-                />
-              </>
-            ) : (
-              <div className="absolute inset-y-0 right-0 hidden w-full items-center justify-end sm:flex">
-                <div className="relative mr-[8%] h-[70%] w-[40%] lg:mr-[4%] lg:h-[82%] lg:w-[43%] xl:mr-[7%] xl:h-full xl:w-[58%]">
+            <div
+              key={i === index ? `active-${index}` : "inactive"}
+              className={`absolute inset-0 ${i === index && !reducedMotion ? "animate-clip-reveal" : ""}`}
+            >
+              {s.imageKind === "photo" ? (
+                <>
                   <div
-                    className={`relative h-full w-full transition-transform ease-linear ${
-                      i === index ? "scale-[1.08]" : "scale-100"
+                    className={`absolute inset-0 transition-transform ease-linear ${
+                      i === index ? "scale-110" : "scale-100"
                     }`}
                     style={{ transitionDuration: `${AUTOPLAY_MS + 800}ms` }}
                   >
@@ -180,16 +194,67 @@ export function Hero() {
                       alt={s.imageAlt}
                       fill
                       priority={i === 0}
-                      sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 43vw, 40vw"
-                      className="object-contain object-right drop-shadow-2xl"
+                      sizes="100vw"
+                      className="object-cover"
+                      style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
                     />
                   </div>
-                </div>
-              </div>
-            )}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to right, var(--color-ink) 0%, var(--color-ink) 46%, color-mix(in srgb, var(--color-ink) 35%, transparent) 62%, color-mix(in srgb, var(--color-ink) 8%, transparent) 100%)",
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  {/* Mobile: faded full-bleed background so the statue reads as atmosphere behind the text, not a competing inline element */}
+                  <div className="absolute inset-0 flex items-center justify-end opacity-25 md:hidden">
+                    <div className="relative -mr-6 h-[80%] w-[95%]">
+                      <Image
+                        src={s.image}
+                        alt=""
+                        fill
+                        priority={i === 0}
+                        sizes="100vw"
+                        className="object-contain object-right"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="absolute inset-0 md:hidden"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, var(--color-ink) 0%, color-mix(in srgb, var(--color-ink) 60%, transparent) 35%, color-mix(in srgb, var(--color-ink) 70%, transparent) 75%, var(--color-ink) 100%)",
+                    }}
+                  />
+
+                  <div className="absolute inset-y-0 right-0 hidden w-full items-center justify-end md:flex">
+                    <div className="relative mr-[8%] h-[70%] w-[40%] lg:mr-[4%] lg:h-[82%] lg:w-[43%] xl:mr-[7%] xl:h-full xl:w-[58%]">
+                      <div
+                        className={`relative h-full w-full transition-transform ease-linear ${
+                          i === index ? "scale-[1.08]" : "scale-100"
+                        }`}
+                        style={{ transitionDuration: `${AUTOPLAY_MS + 800}ms` }}
+                      >
+                        <Image
+                          src={s.image}
+                          alt={s.imageAlt}
+                          fill
+                          priority={i === 0}
+                          sizes="(min-width: 1280px) 58vw, (min-width: 1024px) 43vw, 40vw"
+                          className="object-contain object-right drop-shadow-2xl"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-ink/40" />
+        <div className="absolute inset-4 bg-gradient-to-t from-ink via-ink/10 to-ink/40" />
       </div>
 
       {/* Vertical rail: scroll cue + follow */}
@@ -200,7 +265,7 @@ export function Hero() {
           </span>
           <span aria-hidden className="h-14 w-px bg-paper/25" />
           <span className="[writing-mode:vertical-rl] text-[11px] tracking-[0.3em] text-paper/50 uppercase">
-            Follow — Li · Ig · Fb
+            Follow   Li · Ig · Fb
           </span>
         </div>
       </div>
@@ -209,44 +274,59 @@ export function Hero() {
         <div className="flex min-h-[640px] flex-col justify-center py-24 lg:min-h-[86vh] lg:py-16 lg:pl-8 xl:pl-28">
           <div key={index} className="max-w-2xl">
             <span
-              className="animate-hero-fade-up inline-flex items-center gap-2 text-xs font-bold tracking-[0.22em] text-accent uppercase"
+              className="animate-hero-reveal inline-flex items-center gap-2 text-xs font-bold tracking-[0.22em] text-white uppercase"
               style={{ animationDelay: "0ms" }}
             >
-              <span aria-hidden className="h-px w-6 bg-accent" />
               {slide.eyebrow}
             </span>
 
-            <h1
-              className="animate-hero-fade-up mt-6 font-serif text-4xl leading-[1.3] tracking-tight text-paper sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "80ms" }}
-            >
-              {slide.headline.lead}
-              <span className="relative mx-3 hidden h-14 w-44 -translate-y-1 overflow-hidden rounded-full align-middle sm:inline-block sm:h-16 sm:w-56 lg:h-20 lg:w-64">
-                <Image src={INLINE_TILE_SRC} alt="" fill sizes="220px" className="object-cover" />
-              </span>
-              <br />
-              {slide.headline.line2}
-              <br />
-              {slide.headline.line3}
-            </h1>
+            <div className="relative">
+              <h1 className="mt-6 font-cormorant text-5xl leading-[1.02] font-semibold tracking-[0.01em] text-paper sm:text-6xl xl:text-7xl">
+                <span className="animate-hero-reveal block" style={{ animationDelay: "100ms" }}>
+                  {slide.headline.lead}
+                </span>
+                <span className="animate-hero-reveal block" style={{ animationDelay: "200ms" }}>
+                  {slide.headline.line2}
+                </span>
+                <span className="animate-hero-reveal block" style={{ animationDelay: "300ms" }}>
+                  {slide.headline.line3}
+                </span>
+              </h1>
+              <div
+                className="pointer-events-none absolute top-2 right-0 z-10 hidden h-14 w-44 sm:block sm:top-3 sm:h-16 sm:w-56 lg:top-4 lg:h-20 lg:w-64"
+                style={{ right: slide.headlineImageRight ?? "0" }}
+              >
+                <div className="animate-float-y h-full w-full">
+                  <div
+                    className="animate-tile-reveal h-full w-full overflow-hidden rounded-full shadow-2xl"
+                    style={{ animationDelay: "420ms" }}
+                  >
+                    <Image src={INLINE_TILE_SRC} alt="" fill sizes="220px" className="object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <p
-              className="animate-hero-fade-up mt-6 max-w-lg text-lg leading-relaxed text-paper/70 sm:text-xl"
-              style={{ animationDelay: "240ms" }}
+              className="animate-hero-reveal mt-6 max-w-lg text-lg leading-relaxed text-paper/70 sm:text-xl"
+              style={{ animationDelay: "420ms" }}
             >
               {slide.description}
             </p>
 
             <div
-              className="animate-hero-fade-up mt-10"
-              style={{ animationDelay: "320ms" }}
+              className="animate-hero-reveal mt-10"
+              style={{ animationDelay: "520ms" }}
             >
               <Button
                 href={slide.ctaHref}
                 variant="on-ink"
-                className="border-accent bg-transparent text-paper shadow-[6px_6px_0_0_rgba(184,144,60,0.4)] transition-all duration-300 hover:border-accent hover:bg-accent hover:text-ink hover:shadow-none"
+                className="group/cta border-accent bg-transparent text-paper shadow-[6px_6px_0_0_rgba(184,144,60,0.4)] transition-all duration-300 hover:border-accent hover:bg-accent hover:text-ink hover:-translate-y-0.5 hover:shadow-[6px_10px_0_0_rgba(184,144,60,0.4)]"
               >
-                {slide.ctaLabel} →
+                {slide.ctaLabel}{" "}
+                <span className="inline-block transition-transform duration-300 group-hover/cta:translate-x-1.5">
+                  →
+                </span>
               </Button>
             </div>
           </div>
@@ -254,23 +334,30 @@ export function Hero() {
       </Container>
 
       {/* Rotating brand seal */}
-      <div className="group absolute top-1/2 right-[22%] z-10 hidden h-40 w-40 -translate-y-1/2 items-center justify-center xl:flex">
+      <div
+        ref={badgeRef}
+        className="animate-badge-in group absolute top-1/2 right-[22%] z-10 hidden h-40 w-40 -translate-y-1/2 items-center justify-center transition-transform duration-300 ease-out will-change-transform xl:flex"
+        style={{ animationDelay: "600ms" }}
+      >
         <svg
           viewBox="0 0 200 200"
-          className="badge-rotate h-full w-full text-paper/60 transition-colors duration-300 group-hover:text-orange-400 group-hover:[animation-play-state:paused]"
+          className="badge-rotate h-full w-full text-white transition-colors duration-300 group-hover:text-orange-400 group-hover:[animation-play-state:paused]"
         >
           <defs>
             <path id="hero-badge-circle" d="M100,100 m-84,0 a84,84 0 1,1 168,0 a84,84 0 1,1 -168,0" fill="none" />
           </defs>
-          <text fontSize="11.5" letterSpacing="2" fill="currentColor">
+          <text fontSize="13.5" fontWeight="700" letterSpacing="2" fill="currentColor">
             <textPath href="#hero-badge-circle">{BADGE_TEXT}</textPath>
           </text>
         </svg>
+        {!reducedMotion ? (
+          <span className="animate-ping-soft pointer-events-none absolute h-12 w-12 rounded-full bg-accent/40" />
+        ) : null}
         <button
           type="button"
           onClick={() => setVideoOpen(true)}
           aria-label="Play related video"
-          className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-accent/50 bg-ink/60 text-accent backdrop-blur-sm transition-colors duration-300 group-hover:border-orange-400 group-hover:text-orange-400"
+          className="absolute flex h-12 w-12 items-center justify-center rounded-full border border-accent/50 bg-ink/60 text-accent backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:border-orange-400 group-hover:text-orange-400"
         >
           <svg aria-hidden viewBox="0 0 16 16" className="h-4 w-4 translate-x-px">
             <path d="M4 2.5v11l10-5.5-10-5.5z" fill="currentColor" />
@@ -284,7 +371,7 @@ export function Hero() {
           type="button"
           aria-label="Previous slide"
           onClick={() => goRelative(-1)}
-          className="flex h-9 w-9 items-center justify-center text-paper/70 transition-colors hover:text-paper"
+          className="flex h-9 w-9 items-center justify-center text-paper/70 transition-all duration-200 hover:-translate-x-0.5 hover:text-paper"
         >
           <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5">
             <path d="M10 2L4 8l6 6" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -299,7 +386,7 @@ export function Hero() {
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === index}
               onClick={() => goTo(i)}
-              className={`relative h-9 w-9 overflow-hidden rounded-full transition-colors ${
+              className={`relative h-9 w-9 overflow-hidden rounded-full transition-all duration-200 hover:scale-110 ${
                 i === index ? "bg-ink text-sm font-medium text-paper" : "border border-paper/30 hover:border-paper/60"
               }`}
             >
@@ -339,7 +426,7 @@ export function Hero() {
           type="button"
           aria-label="Next slide"
           onClick={() => goRelative(1)}
-          className="flex h-9 w-9 items-center justify-center text-paper/70 transition-colors hover:text-paper"
+          className="flex h-9 w-9 items-center justify-center text-paper/70 transition-all duration-200 hover:translate-x-0.5 hover:text-paper"
         >
           <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5">
             <path d="M6 2l6 6-6 6" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />

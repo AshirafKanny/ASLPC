@@ -7,10 +7,13 @@ import { LogoMark } from "@/components/ui/logo";
 import { PRIMARY_NAV, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+const HOVER_CLOSE_DELAY_MS = 150;
+
 export function SiteHeader() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     function onClickOutside(event: MouseEvent) {
@@ -21,6 +24,25 @@ export function SiteHeader() {
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
+
+  function openGroupNow(label: string | null) {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpenGroup(label);
+  }
+
+  function scheduleClose() {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => setOpenGroup(null), HOVER_CLOSE_DELAY_MS);
+  }
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-line-on-ink bg-ink">
@@ -37,43 +59,58 @@ export function SiteHeader() {
           </Link>
 
           <nav className="hidden items-center gap-1 border-l border-paper/15 pl-8 lg:flex">
-            {PRIMARY_NAV.map((group) => (
-              <div key={group.label} className="relative">
-                <button
-                  type="button"
-                  onClick={() => setOpenGroup((current) => (current === group.label ? null : group.label))}
-                  className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-paper/80 transition-colors hover:text-paper",
-                    openGroup === group.label && "text-paper",
-                  )}
-                  aria-expanded={openGroup === group.label}
+            {PRIMARY_NAV.map((group) =>
+              group.items.length === 0 && group.href ? (
+                <Link
+                  key={group.label}
+                  href={group.href}
+                  className="px-4 py-2 text-sm font-medium text-paper/80 transition-colors hover:text-paper"
                 >
                   {group.label}
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 10 6"
-                    className={cn("h-1.5 w-2.5 transition-transform", openGroup === group.label && "rotate-180")}
+                </Link>
+              ) : (
+                <div
+                  key={group.label}
+                  className="relative"
+                  onMouseEnter={() => openGroupNow(group.label)}
+                  onMouseLeave={scheduleClose}
+                >
+                  <button
+                    type="button"
+                    onClick={() => openGroupNow(openGroup === group.label ? null : group.label)}
+                    className={cn(
+                      "flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-paper/80 transition-colors hover:text-paper",
+                      openGroup === group.label && "text-paper",
+                    )}
+                    aria-expanded={openGroup === group.label}
                   >
-                    <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-                  </svg>
-                </button>
+                    {group.label}
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 10 6"
+                      className={cn("h-1.5 w-2.5 transition-transform", openGroup === group.label && "rotate-180")}
+                    >
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                    </svg>
+                  </button>
 
-                {openGroup === group.label ? (
-                  <div className="absolute top-full left-0 w-64 border border-line-on-ink bg-ink py-2 shadow-[0_16px_32px_-16px_rgba(0,0,0,0.4)]">
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setOpenGroup(null)}
-                        className="block px-4 py-2.5 text-sm text-paper/75 transition-colors hover:bg-ink-soft hover:text-accent"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ))}
+                  {openGroup === group.label ? (
+                    <div className="absolute top-full left-0 w-64 border border-line-on-ink bg-ink py-2 shadow-[0_16px_32px_-16px_rgba(0,0,0,0.4)]">
+                      {group.items.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setOpenGroup(null)}
+                          className="block px-4 py-2.5 text-sm text-paper/75 transition-colors hover:bg-ink-soft hover:text-accent"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              ),
+            )}
           </nav>
 
           <div className="hidden items-center gap-4 border-l border-paper/15 pl-6 lg:flex">
@@ -118,23 +155,34 @@ export function SiteHeader() {
         <div className="border-t border-line-on-ink bg-ink lg:hidden">
           <Container className="py-4">
             <div className="flex flex-col divide-y divide-line-on-ink">
-              {PRIMARY_NAV.map((group) => (
-                <div key={group.label} className="py-3">
-                  <p className="text-xs font-semibold tracking-[0.14em] text-paper/40 uppercase">{group.label}</p>
-                  <div className="mt-2 flex flex-col gap-1">
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="py-1.5 text-sm text-paper/80"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
+              {PRIMARY_NAV.map((group) =>
+                group.items.length === 0 && group.href ? (
+                  <Link
+                    key={group.label}
+                    href={group.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="py-3 text-xs font-semibold tracking-[0.14em] text-paper/80 uppercase"
+                  >
+                    {group.label}
+                  </Link>
+                ) : (
+                  <div key={group.label} className="py-3">
+                    <p className="text-xs font-semibold tracking-[0.14em] text-paper/40 uppercase">{group.label}</p>
+                    <div className="mt-2 flex flex-col gap-1">
+                      {group.items.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="py-1.5 text-sm text-paper/80"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
             <Link
               href="/contact"

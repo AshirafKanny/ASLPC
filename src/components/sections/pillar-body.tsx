@@ -9,7 +9,11 @@ export function PillarBody({ pillar }: { pillar: PillarSlug }) {
   const publications = getPublicationsByPillar(pillar);
 
   if (publications.length === 0) {
-    return <PlaceholderNotice>Related publications and programme content will be added here.</PlaceholderNotice>;
+    return (
+      <PlaceholderNotice>
+        Publications from this area of work will be listed here as ASLPC&apos;s research programme releases them.
+      </PlaceholderNotice>
+    );
   }
 
   return (

@@ -13,6 +13,13 @@ export function formatDate(iso: string): string {
   });
 }
 
+export function splitTitleAccent(title: string, accentPhrase?: string): [string, string, string] {
+  if (!accentPhrase) return [title, "", ""];
+  const index = title.indexOf(accentPhrase);
+  if (index === -1) return [title, "", ""];
+  return [title.slice(0, index), accentPhrase, title.slice(index + accentPhrase.length)];
+}
+
 export function formatDateRange(startIso: string, endIso?: string): string {
   if (!endIso) return formatDate(startIso);
   const start = new Date(startIso);

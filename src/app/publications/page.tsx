@@ -20,7 +20,7 @@ export default async function PublicationsPage(props: PageProps<"/publications">
       <PageHeader
         eyebrow="Knowledge"
         title="Publications"
-        description="Structured research output from ASLPC's programme — reports, policy briefs, journal articles and working papers."
+        description="Structured research output from ASLPC's programme   reports, policy briefs, journal articles and working papers."
       />
       <section className="py-16 lg:py-20">
         <Container>
@@ -30,8 +30,14 @@ export default async function PublicationsPage(props: PageProps<"/publications">
                 <PublicationCard key={publication.slug} publication={publication} />
               ))}
             </div>
-          ) : (
+          ) : category ? (
             <p className="text-sm text-muted">No publications found in this category yet.</p>
+          ) : (
+            <p className="max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
+              ASLPC is in its institutional establishment phase. Its publications   reports, policy briefs, journal
+              articles and working papers, including the Annual African Sports Law and Policy Report and a State of
+              Sports Governance report   will appear here as the Centre&apos;s research programme releases them.
+            </p>
           )}
         </Container>
       </section>

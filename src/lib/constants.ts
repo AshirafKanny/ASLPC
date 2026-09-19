@@ -39,7 +39,7 @@ export const PILLARS: Pillar[] = [
   },
   {
     slug: "academy",
-    label: "Capacity Building — ASLPC Academy",
+    label: "Capacity Building   ASLPC Academy",
     shortLabel: "Academy",
     summary:
       "Training programmes building a new generation of African sports law and policy practitioners.",
@@ -87,6 +87,14 @@ export const PRIMARY_NAV: NavGroup[] = [
       { label: "Policy Briefs", href: "/publications?category=policy-brief" },
       { label: "Reports", href: "/publications?category=report" },
       { label: "Insights & Articles", href: "/insights" },
+    ],
+  },
+  {
+    label: "Articles",
+    href: "/insights",
+    items: [
+      { label: "Article Listing", href: "/insights" },
+      { label: "Article Detail", href: "/insights/why-african-federations-need-independent-dispute-tribunals" },
     ],
   },
   {

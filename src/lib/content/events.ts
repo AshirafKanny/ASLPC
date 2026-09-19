@@ -1,33 +1,10 @@
 import type { Event } from "./types";
 
-// Placeholder dataset — structured for a future registration-ready events system.
-export const events: Event[] = [
-  {
-    slug: "continental-policy-dialogue-on-sports-governance",
-    title: "Continental Policy Dialogue on Sports Governance",
-    type: "dialogue",
-    startDate: "2026-11-12",
-    location: "Kampala, Uganda",
-    isVirtual: false,
-    description:
-      "A convening of policymakers, federations and researchers to discuss governance reform priorities for African sport.",
-    speakers: [],
-    pillar: "governance",
-  },
-  {
-    slug: "aslpc-academy-sports-law-fundamentals",
-    title: "ASLPC Academy: Sports Law Fundamentals",
-    type: "training",
-    startDate: "2026-10-05",
-    endDate: "2026-10-09",
-    location: "Virtual",
-    isVirtual: true,
-    description:
-      "A five-day foundational training programme in sports law for early-career lawyers and federation officials.",
-    speakers: [],
-    pillar: "academy",
-  },
-];
+// ASLPC is in its institutional establishment phase and has not yet confirmed
+// dated events. The Centre's indicative annual calendar (conference, governance
+// forum, lecture series, training programme and more) is described on the
+// Events page; specific dated entries will be added here once confirmed.
+export const events: Event[] = [];
 
 export function getUpcomingEvents(limit = 3): Event[] {
   const now = Date.now();
