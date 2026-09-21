@@ -67,7 +67,7 @@ export default function ContactPage() {
             </div>
             <div>
               <p className="text-xs font-semibold tracking-wide text-ink uppercase">General Enquiries</p>
-              <p className="mt-2 text-sm text-muted">info@aslpc.org</p>
+              <p className="mt-2 text-sm text-muted">{SITE.contactEmail}</p>
             </div>
           </div>
         </Container>

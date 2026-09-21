@@ -2,12 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import bgImg from "../../../public/law-refers.webp";
 
 const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
 const VIDEO_SRC = "/video/aslpc-overview.mp4";
+const BG_VIDEO_SRC = "/LB1.mp4";
 
 const STATS = [
   { value: "4", label: "Technical Divisions" },
@@ -88,7 +87,14 @@ export function InstitutionalStatement() {
   return (
     <section className="relative isolate overflow-hidden bg-ink text-paper">
       <div className="absolute inset-0">
-        <Image src={bgImg} alt="" fill sizes="100vw" className="object-cover" />
+        <video
+          src={BG_VIDEO_SRC}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-ink/55" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/45" />
       </div>

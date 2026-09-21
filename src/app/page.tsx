@@ -6,9 +6,11 @@ import { InstitutionalStatement } from "@/components/sections/institutional-stat
 import { Faq } from "@/components/sections/faq";
 import { ConsultationAndTestimonials } from "@/components/sections/consultation-and-testimonials";
 import { LatestNews } from "@/components/sections/latest-news";
+import { EngagementProcess } from "@/components/sections/engagement-process";
 import { FeaturedPublications } from "@/components/sections/featured-publications";
 import { EventsAndInsights } from "@/components/sections/events-and-insights";
 import { CtaBanner } from "@/components/sections/cta-banner";
+import { InstagramFeed } from "@/components/sections/instagram-feed";
 
 export default function HomePage() {
   return (
@@ -21,9 +23,11 @@ export default function HomePage() {
       <Faq />
       <ConsultationAndTestimonials />
       <LatestNews />
+      <EngagementProcess />
       <FeaturedPublications />
       <EventsAndInsights />
       <CtaBanner />
+      <InstagramFeed />
     </>
   );
 }

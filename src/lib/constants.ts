@@ -6,6 +6,7 @@ export const SITE = {
     "ASLPC is an independent African research and policy institution working at the intersection of sports law, governance, policy and sport for development.",
   url: "https://aslpc.org",
   locationLabel: "Kampala, Uganda",
+  contactEmail: "info@aslpc.org",
 } as const;
 
 export type Pillar = {

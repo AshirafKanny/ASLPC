@@ -124,12 +124,28 @@ body {
   }
 }
 
+@keyframes bg-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
 @keyframes dot-fill {
   from {
     stroke-dashoffset: 1;
   }
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -174,6 +190,14 @@ body {
     animation: dot-fill linear forwards;
   }
 
+  .animate-ring-spin {
+    animation: ring-spin 2.4s linear infinite;
+  }
+
+  .animate-bg-zoom {
+    animation: bg-zoom 18s ease-in-out infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-hero-fade-up,
     .animate-hero-reveal,
@@ -181,7 +205,9 @@ body {
     .animate-float-y,
     .animate-clip-reveal,
     .animate-badge-in,
-    .animate-ping-soft {
+    .animate-ping-soft,
+    .animate-bg-zoom,
+    .animate-ring-spin {
       animation: none;
     }
     .badge-rotate {
