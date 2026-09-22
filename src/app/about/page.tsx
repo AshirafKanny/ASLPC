@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import whoWeAreImg from "../../../public/who we a.jpg";
 
 export const metadata: Metadata = {
   title: "About ASLPC",
@@ -57,6 +58,7 @@ export default function AboutPage() {
         eyebrow="Institute"
         title="Who We Are"
         description="ASLPC is an independent African research, policy and knowledge institution working at the intersection of sports law, governance, policy and sport for development."
+        image={whoWeAreImg}
       />
 
       <section className="py-20 lg:py-28">

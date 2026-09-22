@@ -9,6 +9,7 @@ import { LatestNews } from "@/components/sections/latest-news";
 import { EngagementProcess } from "@/components/sections/engagement-process";
 import { FeaturedPublications } from "@/components/sections/featured-publications";
 import { EventsAndInsights } from "@/components/sections/events-and-insights";
+import { JusticeStatement } from "@/components/sections/justice-statement";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { InstagramFeed } from "@/components/sections/instagram-feed";
 
@@ -26,6 +27,7 @@ export default function HomePage() {
       <EngagementProcess />
       <FeaturedPublications />
       <EventsAndInsights />
+      <JusticeStatement />
       <CtaBanner />
       <InstagramFeed />
     </>

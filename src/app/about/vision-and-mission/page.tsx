@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { NumberedList } from "@/components/ui/numbered-list";
+import missionImg from "../../../../public/mission1.jpg";
 
 export const metadata: Metadata = {
   title: "Vision & Mission",
@@ -68,7 +69,7 @@ const OBJECTIVES = [
 export default function VisionMissionPage() {
   return (
     <>
-      <PageHeader eyebrow="Institute" title="Vision & Mission" />
+      <PageHeader eyebrow="Institute" title="Vision & Mission" image={missionImg} />
 
       <section className="py-20 lg:py-28">
         <Container>
@@ -96,14 +97,26 @@ export default function VisionMissionPage() {
         </Container>
       </section>
 
-      <section className="border-t border-line bg-surface py-20 lg:py-28">
+      <section className="relative isolate overflow-hidden bg-ink py-20 text-paper lg:py-28">
+        <video
+          src="/purpose.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 -z-10 bg-ink/60" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/20 to-ink/45" />
+
         <Container>
           <SectionHeading
+            tone="on-ink"
             eyebrow="Institutional Purpose"
             title="Why the Centre exists"
             description="ASLPC exists to generate African sports law and sports policy knowledge grounded in Ugandan and continental realities, and to convert that knowledge into usable outcomes: legislative and regulatory improvement, stronger sports governance, better-protected athletes, more investable sports businesses, more capable sports professionals, and measurable social outcomes from sport-for-development practice."
           />
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-paper/70">
             Its purpose is not to produce research for its own sake, but to be the institution that makes Africa&apos;s
             evolving sports-law frameworks   including Uganda&apos;s National Sports Act, 2023   work in practice.
           </p>

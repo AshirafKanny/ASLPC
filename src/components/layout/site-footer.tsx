@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { LogoMark } from "@/components/ui/logo";
+import { Reveal } from "@/components/motion/reveal";
 import { FOOTER_NAV, SITE } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-line-on-ink bg-ink text-paper">
+      <Reveal>
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
@@ -53,6 +55,7 @@ export function SiteFooter() {
           </div>
         </div>
       </Container>
+      </Reveal>
     </footer>
   );
 }

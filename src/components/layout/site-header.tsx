@@ -4,14 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { LogoMark } from "@/components/ui/logo";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { PRIMARY_NAV, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const HOVER_CLOSE_DELAY_MS = 150;
+const SCROLL_THRESHOLD = 24;
 
 export function SiteHeader() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpenGroup, setMobileOpenGroup] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -23,6 +27,23 @@ export function SiteHeader() {
     }
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  useEffect(() => {
+    let ticking = false;
+    function update() {
+      ticking = false;
+      setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -45,11 +66,22 @@ export function SiteHeader() {
   }
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-line-on-ink bg-ink">
+    <header
+      ref={headerRef}
+      className={cn(
+        "sticky top-0 z-50 border-b border-line-on-ink bg-ink transition-shadow duration-300",
+        scrolled && "shadow-[0_8px_24px_-12px_rgba(0,0,0,0.45)]",
+      )}
+    >
       <Container>
-        <div className="flex h-20 items-center justify-between">
+        <div
+          className={cn(
+            "flex items-center justify-between transition-[height] duration-300 ease-out",
+            scrolled ? "h-16" : "h-20",
+          )}
+        >
           <Link href="/" className="flex items-center gap-3">
-            <LogoMark size={60} priority />
+            <LogoMark size={scrolled ? 48 : 60} priority />
             <span className="flex flex-col leading-tight">
               <span className="font-serif text-lg font-medium text-paper">{SITE.shortName}</span>
               <span className="hidden text-[11px] tracking-wide text-paper/50 sm:block">
@@ -137,7 +169,10 @@ export function SiteHeader() {
             className="flex h-10 w-10 items-center justify-center text-paper lg:hidden"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
+            onClick={() => {
+              setMobileOpen((v) => !v);
+              setMobileOpenGroup(null);
+            }}
           >
             <svg aria-hidden viewBox="0 0 22 16" className="h-4 w-5.5">
               <path
@@ -166,20 +201,41 @@ export function SiteHeader() {
                     {group.label}
                   </Link>
                 ) : (
-                  <div key={group.label} className="py-3">
-                    <p className="text-xs font-semibold tracking-[0.14em] text-paper/40 uppercase">{group.label}</p>
-                    <div className="mt-2 flex flex-col gap-1">
-                      {group.items.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="py-1.5 text-sm text-paper/80"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
+                  <div key={group.label} className="py-1">
+                    <button
+                      type="button"
+                      onClick={() => setMobileOpenGroup(mobileOpenGroup === group.label ? null : group.label)}
+                      aria-expanded={mobileOpenGroup === group.label}
+                      className="flex w-full items-center justify-between gap-4 py-3 text-left"
+                    >
+                      <span className="text-xs font-semibold tracking-[0.14em] text-paper/80 uppercase">
+                        {group.label}
+                      </span>
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 10 6"
+                        className={cn(
+                          "h-2 w-3 shrink-0 text-paper/50 transition-transform",
+                          mobileOpenGroup === group.label && "rotate-180",
+                        )}
+                      >
+                        <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                      </svg>
+                    </button>
+                    {mobileOpenGroup === group.label ? (
+                      <div className="flex flex-col gap-1 pb-3">
+                        {group.items.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="py-1.5 text-sm text-paper/80"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 ),
               )}
@@ -194,6 +250,7 @@ export function SiteHeader() {
           </Container>
         </div>
       ) : null}
+      <ScrollProgress />
     </header>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import chessImg from "../../../../public/chess.jpg";
 
 export const metadata: Metadata = {
   title: "Leadership & Board",
@@ -33,6 +34,7 @@ export default function LeadershipPage() {
         eyebrow="Institute"
         title="Leadership & Board"
         description="ASLPC's leadership model follows a simple three-tier logic, designed to combine strategic oversight, operational leadership and independent external perspective."
+        image={chessImg}
       />
 
       <section className="py-20 lg:py-28">

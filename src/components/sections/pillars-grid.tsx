@@ -1,11 +1,15 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { LogoMark } from "@/components/ui/logo";
+import { Reveal } from "@/components/motion/reveal";
+import { ensureGsap, gsap, ScrollTrigger } from "@/lib/animation/gsap";
+import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 import { cn } from "@/lib/utils";
 import researchImg from "../../../public/small hero img.jpg";
 import policyImg from "../../../public/aslpc hero1.webp";
@@ -98,6 +102,42 @@ function DiagonalArrow({ active }: { active: boolean }) {
 
 export function PillarsGrid() {
   const [active, setActive] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const activeRef = useRef(active);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  // Desktop-only: pin the section while scrolling and let scroll progress drive which
+  // pillar is expanded, in place of (not instead of) the existing click interaction.
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      if (!section || reducedMotion) return;
+
+      ensureGsap();
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1024px)", () => {
+        const trigger = ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: () => `+=${window.innerHeight * 0.55 * FRAMEWORK_ITEMS.length}`,
+          pin: true,
+          scrub: 0.4,
+          onUpdate: (self) => {
+            const idx = Math.min(FRAMEWORK_ITEMS.length - 1, Math.floor(self.progress * FRAMEWORK_ITEMS.length));
+            if (idx !== activeRef.current) setActive(idx);
+          },
+        });
+        return () => trigger.kill();
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef, dependencies: [reducedMotion] },
+  );
 
   function renderColumn(item: FrameworkItem, i: number, isActive: boolean) {
     return (
@@ -140,18 +180,20 @@ export function PillarsGrid() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-ink py-20 text-paper lg:py-28">
+    <section ref={sectionRef} className="relative overflow-hidden bg-ink py-20 text-paper lg:py-28">
       <div className="pointer-events-none absolute top-1/2 -left-24 hidden -translate-y-1/2 opacity-[0.05] lg:block">
         <LogoMark size={560} />
       </div>
 
       <Container className="relative">
-        <SectionHeading
-          tone="on-ink"
-          eyebrow="Our Framework"
-          title="Five pillars, one institution"
-          description="ASLPC's work is organised around five interconnected areas that together form a complete approach to sport governance in Africa."
-        />
+        <Reveal>
+          <SectionHeading
+            tone="on-ink"
+            eyebrow="Our Framework"
+            title="Five pillars, one institution"
+            description="ASLPC's work is organised around five interconnected areas that together form a complete approach to sport governance in Africa."
+          />
+        </Reveal>
       </Container>
 
       {/* Desktop: sliding accordion strip */}

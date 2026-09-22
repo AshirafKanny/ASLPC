@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 import squareImg from "../../../public/small hero img.jpg";
 import justiceImg from "../../../public/law monument full aslpc.webp";
@@ -79,16 +80,18 @@ export function InstitutionalHighlights() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1fr_380px] lg:gap-16 xl:grid-cols-[1fr_420px]">
           <div>
-            <Eyebrow>Why ASLPC</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
-              Independence, Rigour &amp; <em className="text-accent-dark italic">Impact</em>
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted">
-              ASLPC is an independent African research, policy and knowledge institution working at the
-              intersection of sports law, governance, policy and sport for development. Explore what shapes our
-              work   our mission and vision, the values that guide us, the partners we work with, and the path we
-              are building toward a continental institution.
-            </p>
+            <Reveal>
+              <Eyebrow>Why ASLPC</Eyebrow>
+              <h2 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
+                Independence, Rigour &amp; <em className="text-accent-dark italic">Impact</em>
+              </h2>
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-muted">
+                ASLPC is an independent African research, policy and knowledge institution working at the
+                intersection of sports law, governance, policy and sport for development. Explore what shapes our
+                work   our mission and vision, the values that guide us, the partners we work with, and the path we
+                are building toward a continental institution.
+              </p>
+            </Reveal>
 
             <div className="mt-8 flex flex-wrap gap-3">
               {TABS.map((tab) => {
@@ -222,12 +225,14 @@ export function InstitutionalHighlights() {
 
           <div className="hidden lg:block">
             <div className="sticky top-28">
-              <Image
-                src={justiceImg}
-                alt="A statuette of Lady Justice with scales, a gavel and an open law book"
-                className="h-auto max-h-128 w-full object-contain"
-                sizes="420px"
-              />
+              <Reveal variant="scale">
+                <Image
+                  src={justiceImg}
+                  alt="A statuette of Lady Justice with scales, a gavel and an open law book"
+                  className="h-auto max-h-128 w-full object-contain"
+                  sizes="420px"
+                />
+              </Reveal>
             </div>
           </div>
         </div>

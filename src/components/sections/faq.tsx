@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 import faq1 from "../../../public/faq1.jpg";
 import faq2 from "../../../public/faq2.jpg";
@@ -51,7 +52,7 @@ export function Faq() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="grid gap-4">
-            <div className="relative h-64 overflow-hidden sm:h-80">
+            <Reveal variant="clip" className="relative h-64 overflow-hidden sm:h-80">
               <Image
                 src={faq1}
                 alt="A consultation between two colleagues reviewing documents in an office"
@@ -59,9 +60,9 @@ export function Faq() {
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
-            </div>
+            </Reveal>
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative h-48 overflow-hidden sm:h-64">
+              <Reveal variant="clip" delay={0.1} className="relative h-48 overflow-hidden sm:h-64">
                 <Image
                   src={faq2}
                   alt="A professional taking a call at his desk"
@@ -69,8 +70,8 @@ export function Faq() {
                   sizes="(min-width: 1024px) 25vw, 50vw"
                   className="object-cover"
                 />
-              </div>
-              <div className="relative h-48 overflow-hidden sm:h-64">
+              </Reveal>
+              <Reveal variant="clip" delay={0.2} className="relative h-48 overflow-hidden sm:h-64">
                 <Image
                   src={faq3}
                   alt="Colleagues in discussion in an office setting"
@@ -78,11 +79,11 @@ export function Faq() {
                   sizes="(min-width: 1024px) 25vw, 50vw"
                   className="object-cover"
                 />
-              </div>
+              </Reveal>
             </div>
           </div>
 
-          <div>
+          <Reveal>
             <Eyebrow>Frequently Asked Questions</Eyebrow>
             <h2 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
               Our <em className="text-accent-dark italic">Expert</em> Answers
@@ -131,7 +132,7 @@ export function Faq() {
                 Send Enquiry →
               </Button>
             </div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </section>

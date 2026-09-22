@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/motion/reveal";
 
 const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
 const VIDEO_SRC = "/video/aslpc-overview.mp4";
@@ -100,7 +101,7 @@ export function InstitutionalStatement() {
       </div>
 
       <Container className="relative py-24 lg:py-32">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <div className="group relative flex h-32 w-32 shrink-0 items-center justify-center">
             <svg
               viewBox="0 0 200 200"
@@ -136,7 +137,7 @@ export function InstitutionalStatement() {
             of sports law, governance, policy and sport for development — closing the gap between legal
             scholarship, public policy and practical institutional reform.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-16 grid grid-cols-2 divide-x divide-y divide-paper/15 border-t border-paper/15 sm:grid-cols-3 lg:grid-cols-5 lg:divide-y-0">
           {STATS.map((stat) => (

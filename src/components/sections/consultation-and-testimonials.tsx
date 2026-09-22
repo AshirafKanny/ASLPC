@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/components/motion/reveal";
 import { PILLARS } from "@/lib/constants";
 import manImg2 from "../../../public/man pp2.jpg";
 import manImg3 from "../../../public/man pp3.jpg";
@@ -54,7 +55,7 @@ export function ConsultationAndTestimonials() {
   return (
     <section className="grid lg:grid-cols-2">
       <div className="bg-ink px-6 py-20 text-paper sm:px-10 lg:px-16 lg:py-28">
-        <div className="mx-auto max-w-xl">
+        <Reveal className="mx-auto max-w-xl">
           <p className="text-xs font-bold tracking-[0.2em] text-paper/70 uppercase">For Institutional Enquiries</p>
           <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">
             Request A <em className="text-accent italic">Consultation</em>
@@ -126,11 +127,11 @@ export function ConsultationAndTestimonials() {
               Request a Consultation
             </Link>
           </form>
-        </div>
+        </Reveal>
       </div>
 
       <div className="relative overflow-hidden bg-paper px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
-        <div className="relative mx-auto max-w-xl">
+        <Reveal delay={0.15} className="relative mx-auto max-w-xl">
           <span
             aria-hidden
             className="pointer-events-none absolute -top-6 right-0 font-serif text-[140px] leading-none text-line select-none lg:right-8"
@@ -179,7 +180,7 @@ export function ConsultationAndTestimonials() {
               </button>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

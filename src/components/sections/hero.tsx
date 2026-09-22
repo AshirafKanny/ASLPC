@@ -1,10 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { ensureGsap, gsap } from "@/lib/animation/gsap";
+import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 
 type Slide = {
   eyebrow: string;
@@ -63,34 +66,43 @@ const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
 const VIDEO_SRC = "/video/aslpc-overview.mp4";
 const INLINE_TILE_SRC = "/hero/inline-tile.jpg";
 const DOT_RADIUS = 16;
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeReducedMotion(callback: () => void) {
-  const mql = window.matchMedia(REDUCED_MOTION_QUERY);
-  mql.addEventListener("change", callback);
-  return () => mql.removeEventListener("change", callback);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-}
-
-function getReducedMotionServerSnapshot() {
-  return false;
-}
 
 export function Hero() {
   const [index, setIndex] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
-  const reducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    getReducedMotionServerSnapshot,
-  );
+  const reducedMotion = useReducedMotion();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const bgLayerRef = useRef<HTMLDivElement>(null);
+  const bgScaleRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const content = contentRef.current;
+      const bgScale = bgScaleRef.current;
+      if (!section || reducedMotion) return;
+
+      ensureGsap();
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+      if (content) {
+        tl.to(content, { y: -70, opacity: 0.25, ease: "none" }, 0);
+      }
+      if (bgScale) {
+        tl.to(bgScale, { scale: 1.12, ease: "none" }, 0);
+      }
+    },
+    { scope: sectionRef, dependencies: [reducedMotion] },
+  );
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -168,6 +180,7 @@ export function Hero() {
       className="relative isolate min-h-[640px] overflow-hidden bg-ink text-paper lg:min-h-[86vh]"
     >
       {/* Background layers: full-bleed photo slides crossfade with a slow Ken Burns zoom; cutout slides sit as a right-aligned object on the solid ink background */}
+      <div ref={bgScaleRef} className="absolute inset-0 will-change-transform">
       <div ref={bgLayerRef} className="absolute -inset-4 transition-transform duration-300 ease-out will-change-transform">
         {SLIDES.map((s, i) => (
           <div
@@ -256,6 +269,7 @@ export function Hero() {
         ))}
         <div className="absolute inset-4 bg-gradient-to-t from-ink via-ink/10 to-ink/40" />
       </div>
+      </div>
 
       {/* Vertical rail: scroll cue + follow */}
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-16 items-center justify-center lg:flex">
@@ -271,7 +285,10 @@ export function Hero() {
       </div>
 
       <Container className="relative z-10">
-        <div className="flex min-h-[640px] flex-col justify-center py-24 lg:min-h-[86vh] lg:py-16 lg:pl-8 xl:pl-28">
+        <div
+          ref={contentRef}
+          className="flex min-h-[640px] flex-col justify-center py-24 lg:min-h-[86vh] lg:py-16 lg:pl-8 xl:pl-28"
+        >
           <div key={index} className="max-w-2xl">
             <span
               className="animate-hero-reveal inline-flex items-center gap-2 text-xs font-bold tracking-[0.22em] text-white uppercase"
@@ -293,7 +310,7 @@ export function Hero() {
                 </span>
               </h1>
               <div
-                className="pointer-events-none absolute top-2 right-0 z-10 hidden h-14 w-44 sm:block sm:top-3 sm:h-16 sm:w-56 lg:top-4 lg:h-20 lg:w-64"
+                className="pointer-events-none absolute top-2 right-0 z-10 hidden h-14 w-44 sm:block sm:top-3 sm:h-15 sm:w-56 lg:top-4 lg:h-15 lg:w-64 xl:h-18"
                 style={{ right: slide.headlineImageRight ?? "0" }}
               >
                 <div className="animate-float-y h-full w-full">

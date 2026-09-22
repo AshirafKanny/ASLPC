@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/motion/reveal";
+import { StaggerGroup } from "@/components/motion/stagger-group";
 import f1 from "../../../public/f1.jpg";
 import f2 from "../../../public/f2.jpg";
 import f3 from "../../../public/f3.jpg";
@@ -13,7 +15,7 @@ export function InstagramFeed() {
   return (
     <section className="relative overflow-hidden bg-surface pt-20 pb-1 lg:pt-24">
       <Container className="relative">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+        <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <p className="text-xs font-bold tracking-[0.2em] text-ink uppercase">Our Instagram</p>
           <h2 className="relative mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
             <svg
@@ -29,10 +31,10 @@ export function InstagramFeed() {
               Follow <span className="text-accent-dark">@ASLPC</span>
             </span>
           </h2>
-        </div>
+        </Reveal>
       </Container>
 
-      <div className="mt-14 grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-6">
+      <StaggerGroup className="mt-14 grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-6" stagger={0.05}>
         {IMAGES.map((image, i) => (
           <div key={i} className="group relative aspect-square overflow-hidden">
             <Image
@@ -54,7 +56,7 @@ export function InstagramFeed() {
             </svg>
           </div>
         ))}
-      </div>
+      </StaggerGroup>
     </section>
   );
 }
