@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/motion/reveal";
+import { cn } from "@/lib/utils";
 
 export function PageHeader({
   eyebrow,
@@ -10,6 +11,7 @@ export function PageHeader({
   image,
   imageAlt,
   imagePosition,
+  overlay = "strong",
 }: {
   eyebrow?: string;
   title: string;
@@ -17,6 +19,7 @@ export function PageHeader({
   image?: StaticImageData;
   imageAlt?: string;
   imagePosition?: string;
+  overlay?: "strong" | "light" | "none";
 }) {
   if (image) {
     return (
@@ -33,8 +36,17 @@ export function PageHeader({
               style={imagePosition ? { objectPosition: imagePosition } : undefined}
             />
           </div>
-          <div className="absolute inset-0 bg-ink/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/55" />
+          {overlay !== "none" ? (
+            <>
+              <div className={cn("absolute inset-0", overlay === "light" ? "bg-ink/30" : "bg-ink/70")} />
+              <div
+                className={cn(
+                  "absolute inset-0 bg-gradient-to-t",
+                  overlay === "light" ? "from-ink/85 via-ink/15 to-transparent" : "from-ink via-ink/35 to-ink/55",
+                )}
+              />
+            </>
+          ) : null}
         </div>
 
         <Container className="relative py-28 lg:py-36">

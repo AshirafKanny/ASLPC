@@ -4,6 +4,7 @@ import { PillarBody } from "@/components/sections/pillar-body";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PILLARS } from "@/lib/constants";
+import researchImg from "../../../public/research2.jpg";
 
 const pillar = PILLARS.find((p) => p.slug === "research")!;
 
@@ -62,6 +63,8 @@ export default function ResearchPage() {
         eyebrow="Our Work   Division A"
         title="Sports Law Research and Legal Development"
         description="ASLPC's principal knowledge-generation and scholarly research arm, producing rigorous, publishable and policy-relevant legal research on Uganda's and Africa's sport sector."
+        image={researchImg}
+        imageAlt="A notebook, magnifying glass, ruler and pencil laid out on a dark textured desk"
       />
 
       <section className="py-20 lg:py-28">

@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { NumberedList } from "@/components/ui/numbered-list";
+import structureImg from "../../../../public/chair.jpg";
 
 export const metadata: Metadata = {
   title: "Institutional Structure",
@@ -73,6 +74,8 @@ export default function StructurePage() {
         eyebrow="Institute"
         title="Institutional Structure"
         description="ASLPC's structure follows a simple three-tier logic: a Board of Directors provides strategic oversight and safeguards independence; an Executive Director leads implementation; and four technical divisions, supported by three shared functions, carry out the Centre's work."
+        image={structureImg}
+        imageAlt="A circle of chairs, one highlighted in yellow, representing ASLPC's governance structure"
       />
 
       <section className="py-20 lg:py-28">

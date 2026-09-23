@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
+import handshakeImg from "../../../../public/handshake.jpg";
 
 export const metadata: Metadata = {
   title: "Partnerships",
@@ -55,6 +56,10 @@ export default function PartnershipsPage() {
         eyebrow="Institute"
         title="Partnerships"
         description="ASLPC's credibility depends on convening a genuinely broad coalition rather than becoming the instrument of any single actor. The Centre builds structured, differentiated relationships across seven categories of institution."
+        image={handshakeImg}
+        imageAlt="Close-up of a handshake between two people in suits"
+        imagePosition="65% 70%"
+        overlay="light"
       />
 
       <section className="py-20 lg:py-28">
@@ -76,9 +81,8 @@ export default function PartnershipsPage() {
               hosting with a wide, self-governing international network of academic and civil-society partners.
             </p>
             <p className="mt-4">
-              ASLPC is in its institutional establishment phase. Its first partnerships   with Uganda Pentecostal
-              University&apos;s Faculty of Law and government   are being put in place as part of that establishment
-              work; further partnerships across the categories above will be announced as they are confirmed.
+              ASLPC&apos;s first partnerships are with Uganda Pentecostal University&apos;s Faculty of Law and
+              government; further partnerships across the categories above will be announced as they are confirmed.
             </p>
           </div>
         </Container>

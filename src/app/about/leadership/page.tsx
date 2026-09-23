@@ -50,9 +50,8 @@ export default function LeadershipPage() {
           </div>
 
           <div className="mt-16 max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
-            ASLPC is in its institutional establishment phase, during which its legal establishment, governance
-            structures and core staffing are being put in place. Named Board members, Executive Director and Advisory
-            Council / Fellows Network appointments will be announced here as they are confirmed.
+            Named Board members, Executive Director and Advisory Council / Fellows Network appointments will be
+            announced here as they are confirmed.
           </div>
         </Container>
       </section>

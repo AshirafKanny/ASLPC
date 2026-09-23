@@ -81,8 +81,7 @@ export function FeaturedPublications() {
         </StaggerGroup>
 
         <p className="mt-8 max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
-          The Centre is in its establishment phase — publications in each of these formats will appear as ASLPC&apos;s
-          research programme releases them.
+          Publications in each of these formats will appear here as ASLPC&apos;s research programme releases them.
         </p>
       </Container>
     </section>

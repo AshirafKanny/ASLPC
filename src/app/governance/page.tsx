@@ -4,6 +4,7 @@ import { PillarBody } from "@/components/sections/pillar-body";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PILLARS } from "@/lib/constants";
+import cityImg from "../../../public/city2.jpg";
 
 const pillar = PILLARS.find((p) => p.slug === "governance")!;
 
@@ -19,6 +20,10 @@ export default function GovernancePage() {
         eyebrow="Our Work   Division B"
         title="Sports Governance"
         description="Advisory work strengthening the governance, integrity and accountability of federations, ministries and sporting bodies."
+        image={cityImg}
+        imageAlt="Double-exposure image of a city skyline and business figures in conversation"
+        imagePosition="50% 65%"
+        overlay="light"
       />
 
       <section className="py-20 lg:py-28">

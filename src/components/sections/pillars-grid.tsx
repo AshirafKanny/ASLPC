@@ -103,6 +103,7 @@ function DiagonalArrow({ active }: { active: boolean }) {
 export function PillarsGrid() {
   const [active, setActive] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(active);
   const reducedMotion = useReducedMotion();
 
@@ -112,19 +113,22 @@ export function PillarsGrid() {
 
   // Desktop-only: pin the section while scrolling and let scroll progress drive which
   // pillar is expanded, in place of (not instead of) the existing click interaction.
+  // The trigger is the numbers row itself (not the section top), so the pin/scroll
+  // effect only kicks in once that row - with the 01-05 numbers - is fully in view.
   useGSAP(
     () => {
       const section = sectionRef.current;
-      if (!section || reducedMotion) return;
+      const row = rowRef.current;
+      if (!section || !row || reducedMotion) return;
 
       ensureGsap();
       const mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
         const trigger = ScrollTrigger.create({
-          trigger: section,
+          trigger: row,
           start: "top top",
           end: () => `+=${window.innerHeight * 0.55 * FRAMEWORK_ITEMS.length}`,
-          pin: true,
+          pin: section,
           scrub: 0.4,
           onUpdate: (self) => {
             const idx = Math.min(FRAMEWORK_ITEMS.length - 1, Math.floor(self.progress * FRAMEWORK_ITEMS.length));
@@ -197,7 +201,13 @@ export function PillarsGrid() {
       </Container>
 
       {/* Desktop: sliding accordion strip */}
-      <div className="relative mt-14 hidden w-full border-t border-paper/15 lg:mt-20 lg:flex">
+      <div ref={rowRef} className="relative mt-14 hidden w-full border-t border-paper/15 lg:mt-20 lg:flex">
+        {/* Preload every pillar image up front so switching panels is instant, not a network wait. */}
+        <div className="hidden" aria-hidden>
+          {FRAMEWORK_ITEMS.map((item) => (
+            <Image key={`preload-${item.slug}`} src={item.image} alt="" priority sizes="320px" />
+          ))}
+        </div>
         {FRAMEWORK_ITEMS.map((item, i) => {
           if (i !== active) return renderColumn(item, i, false);
           return (
@@ -225,7 +235,15 @@ export function PillarsGrid() {
                 )}
               >
                 <div className="animate-clip-reveal relative aspect-4/5 w-full overflow-hidden">
-                  <Image src={item.image} alt={item.heading} fill sizes="320px" className="object-cover" />
+                  <Image
+                    src={item.image}
+                    alt={item.heading}
+                    fill
+                    sizes="320px"
+                    priority={i === 0}
+                    placeholder="blur"
+                    className="object-cover"
+                  />
                 </div>
               </div>
               {renderColumn(item, i, true)}
@@ -270,7 +288,14 @@ export function PillarsGrid() {
                 {isActive ? (
                   <div className="animate-hero-reveal pb-8">
                     <div className="relative mb-6 h-48 w-full overflow-hidden sm:h-64">
-                      <Image src={item.image} alt={item.heading} fill sizes="100vw" className="object-cover" />
+                      <Image
+                        src={item.image}
+                        alt={item.heading}
+                        fill
+                        sizes="100vw"
+                        placeholder="blur"
+                        className="object-cover"
+                      />
                     </div>
                     <h3 className="font-serif text-xl text-paper">{item.heading}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-paper/65">{item.paragraph}</p>

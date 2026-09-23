@@ -75,7 +75,7 @@ export function EventsAndInsights() {
 
             <p className="mt-8 max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
               ASLPC&apos;s public programme — including its founding conference, policy dialogues and Academy training
-              courses — will be announced here following the Centre&apos;s institutional launch.
+              courses — will be announced here.
             </p>
           </>
         )}

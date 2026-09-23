@@ -4,6 +4,7 @@ import { PillarBody } from "@/components/sections/pillar-body";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PILLARS } from "@/lib/constants";
+import footballImg from "../../../public/football1.jpg";
 
 const pillar = PILLARS.find((p) => p.slug === "policy")!;
 
@@ -19,6 +20,9 @@ export default function PolicyPage() {
         eyebrow="Our Work   Division B"
         title="Sports Policy"
         description="Translating the Centre's research into practical policy solutions, supporting the implementation of Uganda's National Sports Act, 2023 and comparable regional frameworks."
+        image={footballImg}
+        imageAlt="A footballer holding a football against a blue wall"
+        imagePosition="75% 50%"
       />
 
       <section className="py-20 lg:py-28">

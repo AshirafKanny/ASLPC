@@ -27,10 +27,10 @@ export default function EventsPage() {
             </div>
           ) : (
             <p className="max-w-2xl border-l-2 border-accent pl-6 text-sm leading-relaxed text-muted">
-              ASLPC is in its institutional establishment phase and has not yet confirmed dated events. Once
-              launched, this calendar will carry the Centre&apos;s indicative annual programme   the African Sports
-              Law and Policy Conference, the Sports Governance Forum, the African Sports Law Lecture Series, Athlete
-              Rights Week, policy roundtables, and the ASLPC Academy&apos;s training courses.
+              This calendar carries the Centre&apos;s indicative annual programme   the African Sports Law and
+              Policy Conference, the Sports Governance Forum, the African Sports Law Lecture Series, Athlete Rights
+              Week, policy roundtables, and the ASLPC Academy&apos;s training courses. Dates will be published here
+              as they are confirmed.
             </p>
           )}
         </Container>
