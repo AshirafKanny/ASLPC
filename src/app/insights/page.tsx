@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/content/blog-card";
 import { insights, getRecentInsights } from "@/lib/content/insights";
 import { formatDate, cn } from "@/lib/utils";
+import closeupImg from "../../../public/closeup1.jpg";
 
 export const metadata: Metadata = {
   title: "Insights & Articles",
@@ -64,6 +65,9 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
         eyebrow="Knowledge"
         title="Insights & Articles"
         description="Commentary and analysis from ASLPC's research and programme teams."
+        image={closeupImg}
+        imageAlt="Glasses and a notebook on a table, with someone reading a report in the background"
+        imagePosition="55% 70%"
       />
 
       <section className="py-16 lg:py-20">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { SITE } from "@/lib/constants";
+import contactImg from "../../../public/contact2.jpg";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,6 +16,9 @@ export default function ContactPage() {
         eyebrow="Get in Touch"
         title="Contact ASLPC"
         description="For research collaboration, policy engagement, training enquiries or media requests."
+        image={contactImg}
+        imageAlt="A monochrome yellow desk scene with a rotary telephone, notebook and stationery"
+        imagePosition="60% 60%"
       />
       <section className="py-16 lg:py-20">
         <Container className="grid gap-12 lg:grid-cols-2">

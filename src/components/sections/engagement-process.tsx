@@ -76,10 +76,14 @@ export function EngagementProcess() {
 
   return (
     <section ref={sectionRef} className="relative isolate overflow-hidden bg-paper py-20 lg:py-28">
-      <div ref={parallaxRef} className="absolute -inset-y-24 inset-x-0 -z-10 will-change-transform">
+      <div
+        ref={parallaxRef}
+        className="absolute inset-x-0 top-0 -z-10 h-[560px] will-change-transform sm:inset-y-0 sm:-inset-y-24 sm:h-auto"
+      >
         <div className="animate-bg-zoom absolute inset-0">
-          <Image src={lawBImg} alt="" fill sizes="100vw" className="object-cover" />
+          <Image src={lawBImg} alt="" fill sizes="(max-width: 639px) 150vw, 100vw" className="object-cover" />
         </div>
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-paper sm:hidden" />
       </div>
 
       <Container className="relative">

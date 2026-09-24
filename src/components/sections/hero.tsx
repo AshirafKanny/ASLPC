@@ -63,7 +63,7 @@ const SLIDES: Slide[] = [
 
 const AUTOPLAY_MS = 6500;
 const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
-const VIDEO_SRC = "/video/aslpc-overview.mp4";
+const VIDEO_SRC = "/judge2.mp4";
 const INLINE_TILE_SRC = "/hero/inline-tile.jpg";
 const DOT_RADIUS = 16;
 

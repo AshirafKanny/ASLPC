@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { ScrollShowcase } from "@/components/sections/scroll-showcase";
 import { StatsBand } from "@/components/sections/stats-band";
 import { PillarsGrid } from "@/components/sections/pillars-grid";
 import { InstitutionalHighlights } from "@/components/sections/institutional-highlights";
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <ScrollShowcase />
       <StatsBand />
       <PillarsGrid />
       <InstitutionalHighlights />

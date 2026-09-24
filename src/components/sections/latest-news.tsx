@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/container";
+import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/content/blog-card";
 import { Reveal } from "@/components/motion/reveal";
 import { StaggerGroup } from "@/components/motion/stagger-group";
@@ -24,6 +25,12 @@ export function LatestNews() {
             <BlogCard key={insight.slug} insight={insight} />
           ))}
         </StaggerGroup>
+
+        <div className="mt-12 flex justify-center">
+          <Button href="/insights" variant="secondary">
+            More Articles
+          </Button>
+        </div>
       </Container>
     </section>
   );

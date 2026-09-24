@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { PublicationCard } from "@/components/content/publication-card";
+import { PublicationFormatCards } from "@/components/content/publication-format-cards";
 import { publications } from "@/lib/content/publications";
 import type { PublicationCategory } from "@/lib/content/types";
+import publicationsImg from "../../../public/publications2.jpg";
 
 export const metadata: Metadata = {
   title: "Publications",
@@ -21,7 +24,20 @@ export default async function PublicationsPage(props: PageProps<"/publications">
         eyebrow="Knowledge"
         title="Publications"
         description="Structured research output from ASLPC's programme   reports, policy briefs, journal articles and working papers."
+        image={publicationsImg}
+        imageAlt="An open book beside a laptop and phone on a desk"
+        imagePosition="30% 45%"
       />
+
+      <section className="border-b border-line py-16 lg:py-20">
+        <Container>
+          <SectionHeading eyebrow="Formats" title="Browse by publication type" />
+          <div className="mt-10">
+            <PublicationFormatCards />
+          </div>
+        </Container>
+      </section>
+
       <section className="py-16 lg:py-20">
         <Container>
           {filtered.length > 0 ? (

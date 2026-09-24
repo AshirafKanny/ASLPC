@@ -4,6 +4,7 @@ import { PillarBody } from "@/components/sections/pillar-body";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PILLARS } from "@/lib/constants";
+import sportsImg from "../../../public/sports2.jpg";
 
 const pillar = PILLARS.find((p) => p.slug === "sport-for-development")!;
 
@@ -30,6 +31,9 @@ export default function SportForDevelopmentPage() {
         eyebrow="Our Work   Division C"
         title="Sport for Development and Social Impact"
         description="Promoting and evaluating the use of sport as a tool for inclusive social and economic development across Uganda and the region."
+        image={sportsImg}
+        imageAlt="Two men playing basketball on an outdoor urban court"
+        imagePosition="35% 45%"
       />
 
       <section className="py-20 lg:py-28">

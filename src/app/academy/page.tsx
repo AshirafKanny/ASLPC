@@ -4,6 +4,7 @@ import { PillarBody } from "@/components/sections/pillar-body";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PILLARS } from "@/lib/constants";
+import graduationImg from "../../../public/graduation1.jpg";
 
 const pillar = PILLARS.find((p) => p.slug === "academy")!;
 
@@ -19,6 +20,8 @@ export default function AcademyPage() {
         eyebrow="Our Work   Division D"
         title="ASLPC Academy"
         description="The Centre's professional-education platform, delivering practical training in sports law, governance, integrity, safeguarding and sport-for-development practice."
+        image={graduationImg}
+        imageAlt="A graduation cap, diploma scrolls and books on a blue background"
       />
 
       <section className="py-20 lg:py-28">

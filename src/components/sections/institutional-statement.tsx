@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/motion/reveal";
 
 const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
-const VIDEO_SRC = "/video/aslpc-overview.mp4";
+const VIDEO_SRC = "/judge2.mp4";
 const BG_VIDEO_SRC = "/LB1.mp4";
 
 const STATS = [
