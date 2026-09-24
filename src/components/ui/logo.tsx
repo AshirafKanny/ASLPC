@@ -20,7 +20,7 @@ export function LogoMark({
       width={size}
       height={size}
       priority={priority}
-      className={cn("h-auto shrink-0", className)}
+      className={cn("shrink-0", className)}
     />
   );
 }

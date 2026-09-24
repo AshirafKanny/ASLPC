@@ -226,7 +226,7 @@ export function Hero() {
                         alt=""
                         fill
                         priority={i === 0}
-                        sizes="100vw"
+                        sizes="95vw"
                         className="object-contain object-right"
                       />
                     </div>

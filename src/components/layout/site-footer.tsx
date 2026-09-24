@@ -2,23 +2,13 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { LogoMark } from "@/components/ui/logo";
 import { Reveal } from "@/components/motion/reveal";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { FooterSparkles } from "@/components/sections/footer-sparkles";
 import { FOOTER_NAV, SITE } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
     <footer className="relative isolate overflow-hidden border-t border-line-on-ink bg-ink text-paper">
-      <div className="pointer-events-none absolute inset-0">
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1.2}
-          particleDensity={70}
-          particleColor="#ffffff"
-          className="h-full w-full"
-        />
-        <div className="absolute inset-0 bg-ink mask-[radial-gradient(1200px_320px_at_center,transparent_10%,white_80%)]" />
-      </div>
+      <FooterSparkles />
 
       <Reveal>
       <Container className="relative py-16">
