@@ -28,7 +28,7 @@ const CATEGORIES: PartnerCategory[] = [
 
 export function PartnershipMarquee() {
   return (
-    <section className="border-b border-line bg-surface py-12">
+    <section className="overflow-hidden border-b border-line bg-surface py-12">
       <Container>
         <SectionHeading align="center" eyebrow="Who We Work With" title="Partnership Categories" />
       </Container>
