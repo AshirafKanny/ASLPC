@@ -24,9 +24,8 @@
   --color-line-on-ink: var(--color-line-on-ink);
   --color-muted: var(--color-muted);
 
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
-  --font-cormorant: var(--font-cormorant);
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-source-serif);
 
   --container-page: 88rem;
 }
@@ -63,27 +62,6 @@ body {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
-  }
-}
-
-@keyframes tile-reveal {
-  from {
-    opacity: 0;
-    transform: scale(0.75) rotate(-6deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
   }
 }
 
@@ -149,6 +127,15 @@ body {
   }
 }
 
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Layered (not left unlayered) so Tailwind utilities like group-hover:[...]
      which are emitted inside @layer utilities   can still override these
    per normal specificity rules. Unlayered styles always beat layered ones
@@ -160,14 +147,6 @@ body {
 
   .animate-hero-reveal {
     animation: hero-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-tile-reveal {
-    animation: tile-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-float-y {
-    animation: float-y 4.5s ease-in-out infinite;
   }
 
   .animate-clip-reveal {
@@ -198,16 +177,19 @@ body {
     animation: bg-zoom 18s ease-in-out infinite;
   }
 
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-hero-fade-up,
     .animate-hero-reveal,
-    .animate-tile-reveal,
-    .animate-float-y,
     .animate-clip-reveal,
     .animate-badge-in,
     .animate-ping-soft,
     .animate-bg-zoom,
-    .animate-ring-spin {
+    .animate-ring-spin,
+    .animate-marquee {
       animation: none;
     }
     .badge-rotate {

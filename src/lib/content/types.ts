@@ -50,7 +50,7 @@ export interface Event {
 export interface InsightArticle {
   slug: string;
   title: string;
-  /** A verbatim substring of `title` to render as the italic accent phrase. */
+  /** A verbatim substring of `title` to render as the accent-colored phrase. */
   accentPhrase?: string;
   author: string;
   publishedAt: string;

@@ -52,7 +52,7 @@ export function PageHeader({
         <Container className="relative py-28 lg:py-36">
           <Reveal>
             {eyebrow ? <Eyebrow tone="on-ink">{eyebrow}</Eyebrow> : null}
-            <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight tracking-tight text-paper sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight font-semibold tracking-tight text-paper sm:text-5xl lg:text-6xl">
               {title}
             </h1>
             {description ? (
@@ -69,7 +69,7 @@ export function PageHeader({
       <Container className="py-16 lg:py-20">
         <Reveal>
           {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight tracking-tight text-ink sm:text-5xl">
+          <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight font-semibold tracking-tight text-ink sm:text-5xl">
             {title}
           </h1>
           {description ? (

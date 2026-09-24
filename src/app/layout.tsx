@@ -1,29 +1,24 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
+import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// DM Sans: body copy, navigation, buttons, forms, cards, labels — the interface voice.
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+// Source Serif 4: hero headings, page/section headings, editorial statements — the institutional voice.
+const sourceSerif4 = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const cormorantGaramond = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  style: ["normal"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -57,10 +52,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${playfairDisplay.variable} ${cormorantGaramond.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${dmSans.variable} ${sourceSerif4.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <SmoothScroll>
           <SiteHeader />

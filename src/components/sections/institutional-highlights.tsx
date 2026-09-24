@@ -82,8 +82,8 @@ export function InstitutionalHighlights() {
           <div>
             <Reveal>
               <Eyebrow>Why ASLPC</Eyebrow>
-              <h2 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
-                Independence, Rigour &amp; <em className="text-accent-dark italic">Impact</em>
+              <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">
+                Independence, Rigour &amp; <span className="text-accent-dark">Impact</span>
               </h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted">
                 ASLPC is an independent African research, policy and knowledge institution working at the

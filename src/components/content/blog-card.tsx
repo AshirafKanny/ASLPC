@@ -41,7 +41,7 @@ export function BlogCard({ insight }: { insight: InsightArticle }) {
         {accent ? (
           <>
             <br />
-            <em className="text-accent-dark italic">{accent}</em>
+            <span className="text-accent-dark">{accent}</span>
           </>
         ) : null}
         {after}

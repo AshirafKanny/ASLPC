@@ -57,8 +57,8 @@ export function ConsultationAndTestimonials() {
       <div className="bg-ink px-6 py-20 text-paper sm:px-10 lg:px-16 lg:py-28">
         <Reveal className="mx-auto max-w-xl">
           <p className="text-xs font-bold tracking-[0.2em] text-paper/70 uppercase">For Institutional Enquiries</p>
-          <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">
-            Request A <em className="text-accent italic">Consultation</em>
+          <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold sm:text-4xl">
+            Request A <span className="text-accent">Consultation</span>
           </h2>
 
           <form className="mt-10 flex flex-col gap-8">
@@ -140,8 +140,8 @@ export function ConsultationAndTestimonials() {
           </span>
 
           <p className="relative text-xs font-bold tracking-[0.2em] text-accent-dark uppercase">Testimonial</p>
-          <h2 className="relative mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-            Stakeholder <em className="text-accent-dark italic">Voices</em>
+          <h2 className="relative mt-3 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">
+            Stakeholder <span className="text-accent-dark">Voices</span>
           </h2>
 
           <p className="relative mt-8 min-h-32 max-w-lg text-base leading-relaxed text-muted">{testimonial.quote}</p>

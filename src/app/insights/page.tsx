@@ -138,7 +138,7 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
 
               <div className="bg-ink p-8 text-paper">
                 <h2 className="font-serif text-xl leading-snug">
-                  Need institutional <em className="text-accent italic">support</em>?
+                  Need institutional <span className="text-accent">support</span>?
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-paper/70">
                   Reach out to discuss research collaboration, policy engagement, training or partnership with

@@ -19,7 +19,6 @@ type Slide = {
   imageAlt: string;
   imageKind: "photo" | "cutout";
   imagePosition?: string;
-  headlineImageRight?: string;
 };
 
 const SLIDES: Slide[] = [
@@ -33,7 +32,6 @@ const SLIDES: Slide[] = [
     image: "/hero/research-justice-cutout.webp",
     imageAlt: "A statuette of Lady Justice with scales, a gavel and an open law book",
     imageKind: "cutout",
-    headlineImageRight: "6rem",
   },
   {
     eyebrow: "Governance & Reform",
@@ -57,14 +55,12 @@ const SLIDES: Slide[] = [
     imageAlt: "A goalkeeper holding a football, gloved hand resting on the ball",
     imageKind: "photo",
     imagePosition: "50% 75%",
-    headlineImageRight: "10rem",
   },
 ];
 
 const AUTOPLAY_MS = 6500;
 const BADGE_TEXT = "AFRICAN SPORTS LAW AND POLICY CENTRE  ·  EST. 2026  ·  ";
 const VIDEO_SRC = "/judge2.mp4";
-const INLINE_TILE_SRC = "/hero/inline-tile.jpg";
 const DOT_RADIUS = 16;
 
 export function Hero() {
@@ -298,7 +294,7 @@ export function Hero() {
             </span>
 
             <div className="relative">
-              <h1 className="mt-6 font-cormorant text-5xl leading-[1.02] font-semibold tracking-[0.01em] text-paper sm:text-6xl xl:text-7xl">
+              <h1 className="mt-6 font-serif text-[clamp(2.75rem,1.85rem+3.8vw,5.25rem)] leading-[1.05] font-semibold tracking-[-0.01em] text-paper">
                 <span className="animate-hero-reveal block" style={{ animationDelay: "100ms" }}>
                   {slide.headline.lead}
                 </span>
@@ -309,19 +305,6 @@ export function Hero() {
                   {slide.headline.line3}
                 </span>
               </h1>
-              <div
-                className="pointer-events-none absolute top-2 right-0 z-10 hidden h-14 w-44 sm:block sm:top-3 sm:h-15 sm:w-56 lg:top-4 lg:h-15 lg:w-64 xl:h-18"
-                style={{ right: slide.headlineImageRight ?? "0" }}
-              >
-                <div className="animate-float-y h-full w-full">
-                  <div
-                    className="animate-tile-reveal h-full w-full overflow-hidden rounded-full shadow-2xl"
-                    style={{ animationDelay: "420ms" }}
-                  >
-                    <Image src={INLINE_TILE_SRC} alt="" fill sizes="220px" className="object-cover" />
-                  </div>
-                </div>
-              </div>
             </div>
 
             <p

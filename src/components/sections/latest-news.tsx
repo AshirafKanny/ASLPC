@@ -15,8 +15,8 @@ export function LatestNews() {
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold tracking-[0.2em] text-ink uppercase">News &amp; Blog Updates</p>
-          <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-            Our <em className="text-accent-dark italic">Latest</em> News
+          <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">
+            Our <span className="text-accent-dark">Latest</span> News
           </h2>
         </Reveal>
 

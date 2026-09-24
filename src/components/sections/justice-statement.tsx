@@ -67,8 +67,8 @@ export function JusticeStatement() {
       <Container className="relative py-28 lg:py-36">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <p className="text-xs font-bold tracking-[0.2em] text-accent uppercase">Core Value</p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl lg:text-5xl">
-            Integrity <em className="text-accent italic">&amp; Accountability</em>
+          <h2 className="mt-4 font-serif text-3xl leading-tight font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            Integrity <span className="text-accent">&amp; Accountability</span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-paper/75 sm:text-lg">
             We uphold honesty, ethical conduct, transparency and accountability in our research, advice,

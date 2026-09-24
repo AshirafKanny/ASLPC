@@ -126,10 +126,10 @@ export function InstitutionalStatement() {
             </button>
           </div>
 
-          <h2 className="mt-8 font-serif text-3xl leading-tight text-paper sm:text-4xl lg:text-5xl">
+          <h2 className="mt-8 font-serif text-3xl leading-tight font-semibold tracking-tight text-paper sm:text-4xl lg:text-5xl">
             The Independent Institution Advancing
             <br />
-            <em className="text-accent italic">African Sports Law</em>
+            <span className="text-accent">African Sports Law</span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-paper/70">

@@ -102,17 +102,17 @@ export function EngagementProcess() {
 
         <div className="mx-auto mt-4 max-w-2xl rounded-2xl border border-paper/60 bg-paper/80 px-8 py-10 text-center shadow-[0_20px_60px_-20px_rgba(23,37,50,0.35)] backdrop-blur-md sm:px-14 sm:py-12">
           <p className="text-xs font-bold tracking-[0.2em] text-ink uppercase">Get In Touch</p>
-          <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">Write To Us Directly</h2>
+          <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">Write To Us Directly</h2>
           <Link
             href={`mailto:${SITE.contactEmail}`}
-            className="mt-2 inline-block font-serif text-2xl text-accent-dark italic transition-colors hover:text-accent sm:text-3xl"
+            className="mt-2 inline-block font-serif text-2xl font-medium text-accent-dark transition-colors hover:text-accent sm:text-3xl"
           >
             {SITE.contactEmail}
           </Link>
 
           <p className="mt-6 font-serif text-lg text-ink">Or</p>
-          <h2 className="mt-2 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-            Schedule A <em className="text-accent-dark italic">Consultation</em>
+          <h2 className="mt-2 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">
+            Schedule A <span className="text-accent-dark">Consultation</span>
           </h2>
         </div>
 

@@ -163,7 +163,7 @@ export function PillarsGrid() {
             <span
               key={line}
               className={cn(
-                "[writing-mode:vertical-rl] rotate-180 font-serif text-2xl leading-none font-bold italic transition-colors duration-500 xl:text-4xl 2xl:text-5xl",
+                "[writing-mode:vertical-rl] rotate-180 font-serif text-2xl leading-none font-bold transition-colors duration-500 xl:text-4xl 2xl:text-5xl",
                 isActive ? "text-paper" : "text-paper/40",
               )}
             >
@@ -276,7 +276,7 @@ export function PillarsGrid() {
                     </span>
                     <span
                       className={cn(
-                        "font-serif text-base italic",
+                        "font-serif text-base",
                         isActive ? "text-paper" : "text-paper/50",
                       )}
                     >

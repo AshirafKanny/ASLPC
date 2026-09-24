@@ -50,7 +50,7 @@ export default async function InsightDetailPage(props: PageProps<"/insights/[slu
 
           <h1 className="mt-6 max-w-3xl font-serif text-4xl leading-tight font-bold sm:text-5xl">
             {before}
-            {accent ? <em className="text-accent italic">{accent}</em> : null}
+            {accent ? <span className="text-accent">{accent}</span> : null}
             {after}
           </h1>
         </Container>

@@ -85,8 +85,8 @@ export function Faq() {
 
           <Reveal>
             <Eyebrow>Frequently Asked Questions</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
-              Our <em className="text-accent-dark italic">Expert</em> Answers
+            <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold tracking-tight text-ink sm:text-4xl">
+              Our <span className="text-accent-dark">Expert</span> Answers
             </h2>
 
             <div className="mt-8 divide-y divide-line border-t border-line">

@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { ScrollShowcase } from "@/components/sections/scroll-showcase";
-import { StatsBand } from "@/components/sections/stats-band";
+import { PartnershipMarquee } from "@/components/sections/partnership-marquee";
 import { PillarsGrid } from "@/components/sections/pillars-grid";
 import { InstitutionalHighlights } from "@/components/sections/institutional-highlights";
 import { InstitutionalStatement } from "@/components/sections/institutional-statement";
@@ -19,7 +19,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ScrollShowcase />
-      <StatsBand />
+      <PartnershipMarquee />
       <PillarsGrid />
       <InstitutionalHighlights />
       <InstitutionalStatement />

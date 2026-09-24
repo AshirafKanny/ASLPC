@@ -51,8 +51,8 @@ export function ScrollShowcase() {
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow className="justify-center">Overview</Eyebrow>
-          <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-            A Closer Look at <em className="text-accent-dark italic">Our Work</em>
+          <h2 className="mt-3 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">
+            A Closer Look at <span className="text-accent-dark">Our Work</span>
           </h2>
         </Reveal>
 

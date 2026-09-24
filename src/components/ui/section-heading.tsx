@@ -31,7 +31,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          "mt-3 font-serif text-3xl leading-tight tracking-tight sm:text-4xl",
+          "mt-3 font-serif text-3xl leading-tight font-semibold tracking-tight sm:text-4xl",
           tone === "on-ink" ? "text-paper" : "text-ink",
         )}
       >
