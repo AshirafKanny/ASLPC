@@ -3,7 +3,9 @@ import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { AosInit } from "@/components/motion/aos-init";
 import { SITE } from "@/lib/constants";
+import "aos/dist/aos.css";
 import "./globals.css";
 
 // DM Sans: body copy, navigation, buttons, forms, cards, labels — the interface voice.
@@ -54,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${dmSans.variable} ${sourceSerif4.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
+        <AosInit />
         <SmoothScroll>
           <SiteHeader />
           <main className="flex-1">{children}</main>

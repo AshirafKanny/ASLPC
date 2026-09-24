@@ -41,6 +41,15 @@ body {
   color: var(--color-surface);
 }
 
+/* Custom AOS animation: a downward wipe reveal, following AOS's own from/to convention. */
+[data-aos="clip-reveal"] {
+  clip-path: inset(0 0 100% 0);
+  transition-property: clip-path;
+}
+[data-aos="clip-reveal"].aos-animate {
+  clip-path: inset(0% 0 0% 0);
+}
+
 @keyframes hero-fade-up {
   from {
     opacity: 0;
