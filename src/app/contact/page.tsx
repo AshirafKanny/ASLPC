@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
-import { SITE } from "@/lib/constants";
+import { PILLARS, SITE } from "@/lib/constants";
+import { ContactForm } from "./contact-form";
 import contactImg from "../../../public/contact2.jpg";
 
 export const metadata: Metadata = {
@@ -9,7 +10,29 @@ export const metadata: Metadata = {
   description: "Get in touch with the African Sports Law and Policy Centre.",
 };
 
-export default function ContactPage() {
+function param(searchParams: Record<string, string | string[] | undefined>, key: string) {
+  const value = searchParams[key];
+  return typeof value === "string" ? value.slice(0, 100) : "";
+}
+
+// Turns the home page "Request a Consultation" selections into a starting message.
+function consultationMessage(searchParams: Record<string, string | string[] | undefined>) {
+  const area = PILLARS.find((p) => p.slug === param(searchParams, "area"))?.label;
+  const type = param(searchParams, "type");
+  const date = param(searchParams, "date");
+  const time = param(searchParams, "time");
+  if (!area && !type) return "";
+
+  const lines = ["I would like to request a consultation."];
+  if (area) lines.push(`Area of interest: ${area}`);
+  if (type) lines.push(`Enquiry type: ${type}`);
+  if (date) lines.push(`Preferred date: ${date}`);
+  if (time) lines.push(`Preferred time: ${time}`);
+  return `${lines.join("\n")}\n\n`;
+}
+
+export default async function ContactPage(props: PageProps<"/contact">) {
+  const searchParams = await props.searchParams;
   return (
     <>
       <PageHeader
@@ -22,47 +45,7 @@ export default function ContactPage() {
       />
       <section className="py-16 lg:py-20">
         <Container className="grid gap-12 lg:grid-cols-2">
-          <form className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-xs font-semibold tracking-wide text-ink uppercase">
-                Full Name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                className="border border-line bg-surface px-4 py-3 text-sm text-ink outline-none focus:border-ink"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-xs font-semibold tracking-wide text-ink uppercase">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="border border-line bg-surface px-4 py-3 text-sm text-ink outline-none focus:border-ink"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="message" className="text-xs font-semibold tracking-wide text-ink uppercase">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                className="border border-line bg-surface px-4 py-3 text-sm text-ink outline-none focus:border-ink"
-              />
-            </div>
-            <button
-              type="submit"
-              className="mt-2 self-start bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-ink-soft"
-            >
-              Send Message
-            </button>
-          </form>
+          <ContactForm defaultMessage={consultationMessage(searchParams)} />
 
           <div className="flex flex-col gap-6 border-t border-line pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-12">
             <div>

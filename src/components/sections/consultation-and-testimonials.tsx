@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 import { PILLARS } from "@/lib/constants";
 import manImg2 from "../../../public/man pp2.jpg";
@@ -61,11 +60,12 @@ export function ConsultationAndTestimonials() {
             Request A <span className="text-accent">Consultation</span>
           </h2>
 
-          <form className="mt-10 flex flex-col gap-8">
+          <form action="/contact" method="get" className="mt-10 flex flex-col gap-8">
             <div className="grid gap-8 sm:grid-cols-2">
               <label className="flex flex-col gap-2">
                 <span className="text-xs font-semibold tracking-wide text-paper/60 uppercase">Area of Interest</span>
                 <select
+                  name="area"
                   defaultValue={PILLARS[0].slug}
                   className="border-b border-paper/30 bg-transparent pb-3 text-sm text-paper outline-none focus:border-paper"
                 >
@@ -79,6 +79,7 @@ export function ConsultationAndTestimonials() {
               <label className="flex flex-col gap-2">
                 <span className="text-xs font-semibold tracking-wide text-paper/60 uppercase">Enquiry Type</span>
                 <select
+                  name="type"
                   defaultValue={ENQUIRY_TYPES[0]}
                   className="border-b border-paper/30 bg-transparent pb-3 text-sm text-paper outline-none focus:border-paper"
                 >
@@ -101,6 +102,7 @@ export function ConsultationAndTestimonials() {
                   </svg>
                   <input
                     type="date"
+                    name="date"
                     className="w-full bg-transparent text-sm text-paper outline-none [color-scheme:dark]"
                   />
                 </div>
@@ -114,18 +116,19 @@ export function ConsultationAndTestimonials() {
                   </svg>
                   <input
                     type="time"
+                    name="time"
                     className="w-full bg-transparent text-sm text-paper outline-none [color-scheme:dark]"
                   />
                 </div>
               </label>
             </div>
 
-            <Link
-              href="/contact"
+            <button
+              type="submit"
               className="mt-2 inline-flex w-fit items-center border border-accent px-6 py-3 text-sm font-medium text-paper shadow-[6px_6px_0_0_rgba(184,144,60,0.4)] transition-all duration-300 hover:bg-accent hover:text-ink hover:shadow-none"
             >
               Request a Consultation
-            </Link>
+            </button>
           </form>
         </Reveal>
       </div>
