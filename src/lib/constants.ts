@@ -91,14 +91,6 @@ export const PRIMARY_NAV: NavGroup[] = [
     ],
   },
   {
-    label: "Articles",
-    href: "/insights",
-    items: [
-      { label: "Article Listing", href: "/insights" },
-      { label: "Article Detail", href: "/insights/why-african-federations-need-independent-dispute-tribunals" },
-    ],
-  },
-  {
     label: "Engage",
     items: [
       { label: "Events", href: "/events" },

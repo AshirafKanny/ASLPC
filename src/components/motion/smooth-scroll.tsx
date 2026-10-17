@@ -10,6 +10,13 @@ import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
  * with GSAP's ticker so ScrollTrigger-driven animations never drift out of sync.
  * Skipped entirely under prefers-reduced-motion — the page falls back to native scroll.
  */
+let activeLenis: Lenis | null = null;
+
+/** The running Lenis instance, if any — e.g. to pause page scrolling while a menu is open. */
+export function getLenis() {
+  return activeLenis;
+}
+
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reducedMotion = useReducedMotion();
 
@@ -24,6 +31,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       touchMultiplier: 1.1,
     });
 
+    activeLenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     function raf(time: number) {
@@ -35,6 +43,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      activeLenis = null;
     };
   }, [reducedMotion]);
 
