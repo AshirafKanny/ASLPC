@@ -7,6 +7,12 @@ export const SITE = {
   url: "https://aslpc.org",
   locationLabel: "Kampala, Uganda",
   contactEmail: "info@aslpc.org",
+  whatsapp: {
+    // International format without "+" or spaces, as wa.me links require.
+    number: "256700138759",
+    display: "+256 700 138759",
+    greeting: "Hello ASLPC, I would like to make an enquiry.",
+  },
 } as const;
 
 export type Pillar = {

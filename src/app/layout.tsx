@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { AosInit } from "@/components/motion/aos-init";
 import { SITE } from "@/lib/constants";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
           <SiteFooter />
         </SmoothScroll>
+        <WhatsAppButton />
       </body>
     </html>
   );
