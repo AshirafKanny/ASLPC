@@ -4,9 +4,7 @@ import { useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { PILLARS } from "@/lib/constants";
-import manImg2 from "../../../public/man pp2.jpg";
-import manImg3 from "../../../public/man pp3.jpg";
-import womanImg1 from "../../../public/woman pp1.jpg";
+import aslpcMark from "../../../public/aslpc-mark.png";
 
 const ENQUIRY_TYPES = ["Training Enquiry", "Policy Advisory", "Partnership Discussion", "Media Enquiry"];
 
@@ -17,29 +15,30 @@ type Testimonial = {
   quote: string;
 };
 
-// Illustrative testimonials for design purposes — ASLPC is pre-launch and has not yet
-// collected real stakeholder feedback. Replace with genuine testimonials before launch.
+// Statements taken from the ASLPC Institutional Profile (September 2026).
+// When genuine stakeholder testimonials have been collected, with each person's
+// consent to be quoted, add them here with their name, role and photo.
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Ronald Ssemwogerere",
-    role: "Federation Administrator",
-    image: manImg2,
+    name: "Our Vision",
+    role: "ASLPC Institutional Profile",
+    image: aslpcMark,
     quote:
-      "The ASLPC Academy's governance workshop gave our federation practical tools we had never had access to before — not just theory, but a self-assessment framework we could apply immediately.",
+      "A legally sound, well-governed, inclusive, commercially sustainable and socially transformative African sports sector, where law, policy and evidence, not improvisation, shape how sport is governed, protected, developed and harnessed for sustainable development.",
   },
   {
-    name: "Patricia Nabirye",
-    role: "Sport for Development Officer",
-    image: womanImg1,
+    name: "Integrity & Accountability",
+    role: "ASLPC Core Value",
+    image: aslpcMark,
     quote:
-      "ASLPC's approach to sport for development is refreshingly rigorous. Their impact framework helped us measure outcomes in a way we could finally take to our donors and partners.",
+      "We uphold honesty, ethical conduct, transparency and accountability in our research, advice, partnerships and institutional operations. Our work is rigorous, defensible and open to scrutiny.",
   },
   {
-    name: "Ivan Tumusiime",
-    role: "Sports Law Practitioner",
-    image: manImg3,
+    name: "Independence & African Ownership",
+    role: "ASLPC Core Value",
+    image: aslpcMark,
     quote:
-      "As a practitioner, I've long felt African sports law lacked a dedicated research base. ASLPC's work on athlete rights and dispute resolution is exactly the Africa-grounded scholarship the field has needed.",
+      "We protect our intellectual, editorial and institutional independence while advancing African expertise, leadership and ownership of sports law and policy knowledge.",
   },
 ];
 
@@ -142,17 +141,17 @@ export function ConsultationAndTestimonials() {
             &rdquo;
           </span>
 
-          <p className="relative text-xs font-bold tracking-[0.2em] text-accent-dark uppercase">Testimonial</p>
+          <p className="relative text-xs font-bold tracking-[0.2em] text-accent-dark uppercase">In Our Words</p>
           <h2 className="relative mt-3 font-serif text-3xl leading-tight font-semibold text-ink sm:text-4xl">
-            Stakeholder <span className="text-accent-dark">Voices</span>
+            What We <span className="text-accent-dark">Stand For</span>
           </h2>
 
           <p className="relative mt-8 min-h-32 max-w-lg text-base leading-relaxed text-muted">{testimonial.quote}</p>
 
           <div className="relative mt-10 flex items-center justify-between gap-6">
             <div className="flex items-center gap-5">
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full">
-                <Image src={testimonial.image} alt={testimonial.name} fill sizes="80px" className="object-cover" />
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-line bg-surface">
+                <Image src={testimonial.image} alt="" fill sizes="80px" className="object-contain p-3" />
               </div>
               <div>
                 <p className="font-serif text-lg text-ink">{testimonial.name}</p>
@@ -164,7 +163,7 @@ export function ConsultationAndTestimonials() {
               <button
                 type="button"
                 onClick={() => goRelative(-1)}
-                aria-label="Previous testimonial"
+                aria-label="Previous statement"
                 className="flex h-10 w-10 items-center justify-center text-ink/60 transition-colors hover:text-ink"
               >
                 <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5">
@@ -174,7 +173,7 @@ export function ConsultationAndTestimonials() {
               <button
                 type="button"
                 onClick={() => goRelative(1)}
-                aria-label="Next testimonial"
+                aria-label="Next statement"
                 className="flex h-10 w-10 items-center justify-center text-ink/60 transition-colors hover:text-ink"
               >
                 <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5">
