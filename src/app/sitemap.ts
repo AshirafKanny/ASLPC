@@ -18,6 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/events",
     "/insights",
     "/contact",
+    "/privacy",
+    "/terms",
     ...PILLARS.map((p) => `/${p.slug}`),
   ];
 

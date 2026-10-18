@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/motion/reveal";
 import { useGSAP } from "@gsap/react";
-import { ensureGsap, gsap, ScrollTrigger } from "@/lib/animation/gsap";
+import { ensureGsap, gsap } from "@/lib/animation/gsap";
 import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 
 const VIDEO_SRC = "/judge2.mp4";
