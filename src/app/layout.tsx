@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Source_Serif_4 } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { WhatsAppButton } from "@/components/ui/whatsapp-button";
-import { SmoothScroll } from "@/components/motion/smooth-scroll";
-import { AosInit } from "@/components/motion/aos-init";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { SITE } from "@/lib/constants";
 import "aos/dist/aos.css";
 import "./globals.css";
@@ -57,13 +55,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${dmSans.variable} ${sourceSerif4.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
-        <AosInit />
-        <SmoothScroll>
-          <SiteHeader />
-          <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
-          <SiteFooter />
-        </SmoothScroll>
-        <WhatsAppButton />
+        <SiteChrome header={<SiteHeader />} footer={<SiteFooter />}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

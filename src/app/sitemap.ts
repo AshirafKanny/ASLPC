@@ -2,9 +2,11 @@ import type { MetadataRoute } from "next";
 import { SITE, PILLARS } from "@/lib/constants";
 import { publications } from "@/lib/content/publications";
 import { events } from "@/lib/content/events";
-import { insights } from "@/lib/content/insights";
+import { getInsights } from "@/lib/content/insights";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const insights = await getInsights();
+
   const staticRoutes = [
     "",
     "/about",
@@ -22,11 +24,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const dynamicRoutes = [
     ...publications.map((p) => `/publications/${p.slug}`),
     ...events.map((e) => `/events/${e.slug}`),
-    ...insights.map((i) => `/insights/${i.slug}`),
   ];
 
-  return [...staticRoutes, ...dynamicRoutes].map((path) => ({
-    url: `${SITE.url}${path}`,
-    lastModified: new Date(),
-  }));
+  return [
+    ...[...staticRoutes, ...dynamicRoutes].map((path) => ({
+      url: `${SITE.url}${path}`,
+      lastModified: new Date(),
+    })),
+    ...insights.map((i) => ({
+      url: `${SITE.url}/insights/${i.slug}`,
+      lastModified: new Date(i.publishedAt),
+    })),
+  ];
 }

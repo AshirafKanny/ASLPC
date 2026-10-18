@@ -4,7 +4,8 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { Tag } from "@/components/ui/tag";
 import { publications } from "@/lib/content/publications";
-import { insights } from "@/lib/content/insights";
+import { getInsights } from "@/lib/content/insights";
+import type { InsightArticle } from "@/lib/content/types";
 import { events } from "@/lib/content/events";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 type SearchResult = { title: string; href: string; type: string; excerpt: string };
 
-function search(query: string): SearchResult[] {
+function search(query: string, insights: InsightArticle[]): SearchResult[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
@@ -41,7 +42,7 @@ function search(query: string): SearchResult[] {
 export default async function SearchPage(props: PageProps<"/search">) {
   const searchParams = await props.searchParams;
   const query = typeof searchParams.q === "string" ? searchParams.q : "";
-  const results = search(query);
+  const results = search(query, query.trim() ? await getInsights() : []);
 
   return (
     <>

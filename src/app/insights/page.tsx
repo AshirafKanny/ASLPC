@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/content/blog-card";
-import { insights, getRecentInsights } from "@/lib/content/insights";
+import { getInsights } from "@/lib/content/insights";
 import { formatDate, cn } from "@/lib/utils";
 import closeupImg from "../../../public/closeup1.jpg";
 
@@ -21,6 +21,7 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
   const query = typeof searchParams.q === "string" ? searchParams.q.trim().toLowerCase() : "";
   const activeTag = typeof searchParams.tag === "string" ? searchParams.tag : "";
   const page = Math.max(1, Number(searchParams.page) || 1);
+  const insights = await getInsights();
 
   const filtered = insights.filter((insight) => {
     const matchesQuery =
@@ -39,7 +40,8 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
   const currentPage = Math.min(page, totalPages);
   const pageItems = sorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
-  const recentPosts = getRecentInsights(3);
+  // getInsights() is already newest-first.
+  const recentPosts = insights.slice(0, 3);
   const allTags = Array.from(new Set(insights.flatMap((i) => i.tags))).sort();
 
   function pageHref(targetPage: number) {
@@ -102,8 +104,17 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
                       href={`/insights/${post.slug}`}
                       className="group flex items-start gap-4 py-4"
                     >
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden">
-                        <Image src={post.image} alt="" fill sizes="64px" className="object-cover" />
+                      <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-ink">
+                        {post.image ? (
+                          <Image
+                            src={post.image.src}
+                            alt=""
+                            fill
+                            sizes="64px"
+                            style={{ objectPosition: post.image.objectPosition }}
+                            className="object-cover"
+                          />
+                        ) : null}
                       </div>
                       <div>
                         <p className="text-xs text-muted">{formatDate(post.publishedAt)}</p>

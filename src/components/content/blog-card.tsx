@@ -8,14 +8,21 @@ export function BlogCard({ insight }: { insight: InsightArticle }) {
 
   return (
     <article className="flex flex-col">
-      <Link href={`/insights/${insight.slug}`} className="relative block h-64 overflow-hidden">
-        <Image
-          src={insight.image}
-          alt={insight.title}
-          fill
-          sizes="(min-width: 768px) 33vw, 100vw"
-          className="object-cover transition-transform duration-500 hover:scale-105"
-        />
+      <Link href={`/insights/${insight.slug}`} className="relative block h-64 overflow-hidden bg-ink">
+        {insight.image ? (
+          <Image
+            src={insight.image.src}
+            alt={insight.image.alt}
+            fill
+            sizes="(min-width: 768px) 33vw, 100vw"
+            placeholder={insight.image.blurDataURL ? "blur" : "empty"}
+            blurDataURL={insight.image.blurDataURL}
+            style={{ objectPosition: insight.image.objectPosition }}
+            className="object-cover transition-transform duration-500 hover:scale-105"
+          />
+        ) : (
+          <span className="flex h-full items-center justify-center font-serif text-2xl text-paper/30">ASLPC</span>
+        )}
       </Link>
 
       <div className="mt-5 flex items-center gap-3 text-xs text-muted">

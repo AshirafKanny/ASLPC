@@ -3,24 +3,38 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { getInsightBySlug, insights } from "@/lib/content/insights";
+import { ArticleBody } from "@/components/content/article-body";
+import { getInsightBySlug, getInsightSlugs } from "@/lib/content/insights";
 import { PILLARS } from "@/lib/constants";
 import { formatDate, splitTitleAccent } from "@/lib/utils";
 
-export function generateStaticParams() {
-  return insights.map((i) => ({ slug: i.slug }));
+export async function generateStaticParams() {
+  const slugs = await getInsightSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata(props: PageProps<"/insights/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
-  const insight = getInsightBySlug(slug);
+  const insight = await getInsightBySlug(slug);
   if (!insight) return {};
-  return { title: insight.title, description: insight.summary };
+  return {
+    title: insight.title,
+    description: insight.summary,
+    alternates: { canonical: `/insights/${insight.slug}` },
+    openGraph: {
+      type: "article",
+      title: insight.title,
+      description: insight.summary,
+      publishedTime: insight.publishedAt,
+      authors: [insight.author],
+      images: insight.image ? [{ url: `${insight.image.src}?w=1200&h=630&fit=crop&auto=format`, alt: insight.image.alt }] : undefined,
+    },
+  };
 }
 
 export default async function InsightDetailPage(props: PageProps<"/insights/[slug]">) {
   const { slug } = await props.params;
-  const insight = getInsightBySlug(slug);
+  const insight = await getInsightBySlug(slug);
   if (!insight) notFound();
 
   const pillar = PILLARS.find((p) => p.slug === insight.pillar);
@@ -30,7 +44,17 @@ export default async function InsightDetailPage(props: PageProps<"/insights/[slu
     <>
       <section className="relative isolate overflow-hidden bg-ink text-paper">
         <div className="absolute inset-0">
-          <Image src={insight.image} alt="" fill priority sizes="100vw" className="object-cover" />
+          {insight.image ? (
+            <Image
+              src={insight.image.src}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectPosition: insight.image.objectPosition }}
+              className="object-cover"
+            />
+          ) : null}
           <div className="absolute inset-0 bg-ink/75" />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/70" />
         </div>
@@ -59,18 +83,25 @@ export default async function InsightDetailPage(props: PageProps<"/insights/[slu
       <section className="py-16 lg:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
-            <div className="relative h-72 overflow-hidden sm:h-96">
-              <Image
-                src={insight.image}
-                alt={insight.title}
-                fill
-                sizes="(min-width: 1024px) 768px, 100vw"
-                className="object-cover"
-              />
-            </div>
+            {insight.image ? (
+              <div className="relative h-72 overflow-hidden sm:h-96">
+                <Image
+                  src={insight.image.src}
+                  alt={insight.image.alt}
+                  fill
+                  sizes="(min-width: 1024px) 768px, 100vw"
+                  placeholder={insight.image.blurDataURL ? "blur" : "empty"}
+                  blurDataURL={insight.image.blurDataURL}
+                  style={{ objectPosition: insight.image.objectPosition }}
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-6">
-              <span className="text-sm text-muted">{formatDate(insight.publishedAt)}</span>
+              <span className="text-sm text-muted">
+                {formatDate(insight.publishedAt)} · {insight.readingTimeMinutes} min read
+              </span>
               <span className="text-sm text-muted">
                 By <span className="font-medium text-ink">{insight.author}</span>
               </span>
@@ -82,10 +113,8 @@ export default async function InsightDetailPage(props: PageProps<"/insights/[slu
               </p>
             ) : null}
 
-            <div className="mt-4 space-y-5 text-base leading-relaxed text-muted">
-              {insight.body.map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
+            <div className="mt-4">
+              <ArticleBody value={insight.body} />
             </div>
           </div>
         </Container>

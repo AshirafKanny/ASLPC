@@ -1,4 +1,4 @@
-import type { StaticImageData } from "next/image";
+import type { PortableTextBlock } from "next-sanity";
 
 export type PillarSlug =
   | "research"
@@ -47,6 +47,15 @@ export interface Event {
   pillar?: PillarSlug;
 }
 
+export interface InsightImage {
+  src: string;
+  alt: string;
+  /** Tiny base64 preview from Sanity, shown while the full image loads. */
+  blurDataURL?: string;
+  /** CSS object-position derived from the focal point picked in the Studio. */
+  objectPosition?: string;
+}
+
 export interface InsightArticle {
   slug: string;
   title: string;
@@ -56,8 +65,9 @@ export interface InsightArticle {
   publishedAt: string;
   pillar: PillarSlug;
   summary: string;
-  body: string[];
-  image: StaticImageData;
+  /** Rich text from the Studio (Portable Text). Only loaded on the article page. */
+  body: PortableTextBlock[];
+  image: InsightImage | null;
   readingTimeMinutes: number;
   tags: string[];
 }

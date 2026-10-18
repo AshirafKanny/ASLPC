@@ -5,8 +5,8 @@ import { Reveal } from "@/components/motion/reveal";
 import { StaggerGroup } from "@/components/motion/stagger-group";
 import { getRecentInsights } from "@/lib/content/insights";
 
-export function LatestNews() {
-  const insights = getRecentInsights(3);
+export async function LatestNews() {
+  const insights = await getRecentInsights(3);
 
   if (insights.length === 0) return null;
 
