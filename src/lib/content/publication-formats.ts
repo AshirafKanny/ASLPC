@@ -8,6 +8,8 @@ import pb4 from "../../../public/pb4.jpg";
 export type PublicationFormat = {
   slug: PublicationCategory;
   label: string;
+  /** Short descriptor shown in the card's meta line. */
+  meta: string;
   description: string;
   image: StaticImageData;
 };
@@ -16,26 +18,29 @@ export const PUBLICATION_FORMATS: PublicationFormat[] = [
   {
     slug: "report",
     label: "Reports",
-    description:
-      "In-depth reports on major developments, challenges and reform priorities across African sport — including the Centre's Annual African Sports Law and Policy Report.",
+    meta: "Annual & thematic",
+    description: "In-depth analysis of reform priorities across African sport, including our annual report.",
     image: pb2,
   },
   {
     slug: "policy-brief",
     label: "Policy Briefs",
-    description: "Concise, policy-relevant briefs on live legislative and regulatory questions facing African sports institutions.",
+    meta: "Short read",
+    description: "Concise briefs on live legal and regulatory questions facing African sport.",
     image: pb4,
   },
   {
     slug: "journal-article",
     label: "Journal Articles",
-    description: "Peer-reviewed scholarship contributing to the growing field of African sports law.",
+    meta: "Peer-reviewed",
+    description: "Scholarship contributing to the growing field of African sports law.",
     image: pb1,
   },
   {
     slug: "working-paper",
     label: "Working Papers",
-    description: "Early-stage research and analysis from ASLPC's ongoing research agenda, shared as the work develops.",
+    meta: "Work in progress",
+    description: "Early-stage research from ASLPC's agenda, shared as the work develops.",
     image: pb3,
   },
 ];
